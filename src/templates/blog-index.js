@@ -7,6 +7,7 @@ import React from 'react'
 import Seo from '../components/SEO'
 import ArticleItem from '../components/ArticleItem'
 import get from 'lodash/get'
+import { rhythm } from '../utils/typography'
 
 class BlogIndexTemplate extends React.Component {
   render() {
@@ -16,7 +17,11 @@ class BlogIndexTemplate extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Seo />
-        <aside>
+        <aside
+          style={{
+            marginBottom: rhythm(2)
+          }}
+        >
           <Bio />
         </aside>
         <main>

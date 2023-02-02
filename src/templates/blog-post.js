@@ -45,7 +45,11 @@ class BlogPostTemplate extends React.Component {
                         <div dangerouslySetInnerHTML={{ __html: post.html }} />
                     </article>
                 </main>
-                <aside>
+                <aside
+                    style={{
+                        marginTop: rhythm(2)
+                    }}
+                >
                     <h3
                         style={{
                             fontFamily: 'Montserrat, sans-serif',
@@ -64,36 +68,38 @@ class BlogPostTemplate extends React.Component {
                         </Link>
                     </h3>
                     <Bio />
-                    <nav>
-                        <ul
-                            style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                justifyContent: 'space-between',
-                                listStyle: 'none',
-                                padding: 0,
-                            }}
-                        >
-                            <li>
-                                {previous && (
-                                    <Link
-                                        to={previous.fields.slug}
-                                        rel="prev"
-                                        style={{ marginRight: 20 }}
-                                    >
-                                        ← {previous.frontmatter.title}
-                                    </Link>
-                                )}
-                            </li>
-                            <li>
-                                {next && (
-                                    <Link to={next.fields.slug} rel="next">
-                                        {next.frontmatter.title} →
-                                    </Link>
-                                )}
-                            </li>
-                        </ul>
-                    </nav>
+                    {(previous || next) && (
+                        <nav>
+                            <ul
+                                style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'space-between',
+                                    listStyle: 'none',
+                                    padding: 0,
+                                }}
+                            >
+                                <li>
+                                    {previous && (
+                                        <Link
+                                            to={previous.fields.slug}
+                                            rel="prev"
+                                            style={{ marginRight: 20 }}
+                                        >
+                                            ← {previous.frontmatter.title}
+                                        </Link>
+                                    )}
+                                </li>
+                                <li>
+                                    {next && (
+                                        <Link to={next.fields.slug} rel="next">
+                                            {next.frontmatter.title} →
+                                        </Link>
+                                    )}
+                                </li>
+                            </ul>
+                        </nav>
+                    )}
                 </aside>
             </Layout>
         )

@@ -7,8 +7,7 @@ class Bio extends React.Component {
     return (
       <div
         style={{
-          display: 'flex',
-          marginBottom: rhythm(2),
+          display: 'flex'
         }}
       >
         <img
@@ -22,10 +21,10 @@ class Bio extends React.Component {
             borderRadius: '50%',
           }}
         />
-        <p style={{ maxWidth: 310 }}>
+        <div style={{ maxWidth: 310 }}>
           Elvis的个人博客.<br />
           好好学习，天天向上
-        </p>
+        </div>
       </div>
     )
   }
