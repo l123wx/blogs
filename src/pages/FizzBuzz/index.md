@@ -27,7 +27,7 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 不同于凭本能思考，这里我们讲一个套路：我们做软件开发的时候可以刻意分三个问题域来考虑问题，我称之为业务域、方案域、实现域。这三个域有什么用呢？
 
-当我们在进行软件开发的时候，有时会陷入无思路的状态，一旦陷入这种状态人容易焦虑，卡很久却没什么进展。这个时候我们往往是处于一种所谓的 unknow unknown 的状态。也就是不知道自己不知道什么。新人最容易陷入到这种状态，只好盯着屏幕看半天。这个时候就需要先意识到自己处于这个状态，然后就可以借用这三个域作为跳板跳出这个状态。
+当我们在进行软件开发的时候，有时会陷入无思路的状态，一旦陷入这种状态人容易焦虑，卡很久却没什么进展。这个时候我们往往是处于一种所谓的 unknown unknown 的状态。也就是不知道自己不知道什么。新人最容易陷入到这种状态，只好盯着屏幕看半天。这个时候就需要先意识到自己处于这个状态，然后就可以借用这三个域作为跳板跳出这个状态。
 
 首先来看看你的问题到底在哪个域，在不同的域要采用不同的方法来探寻问题到底是什么，在这基础上就逐渐有了思路。这就是这三个域的用处。
 
@@ -70,7 +70,31 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 上下文图表达的是代码的静态关系。比如，如果我的代码要这么写：
 
-![img](./images/51caburde9.png)
+```java{4}
+public class FizzBuzzGame {
+    public static void main (String[] args) {
+        for (int i = 1; i <= 200; i++) {
+            String result = handleSingleDigit(i);
+            System.out.printIn(result);
+        }
+    }
+
+    public static String handleSingleDigit (int digit) {
+        String result = "";
+        if (digit % 3 == 0 && digit % 5 == 0) {
+            result = "FizzBuzz";
+        } else if (digit % 3 == 0) {
+            result = "Fizz";
+        } else if (digit % 5 == 0) {
+            result = "Buzz";
+        }
+        if ("".equals(result)) {
+            result = String.valueOf(digit)
+        }
+        return result;
+    }
+}
+```
 
 那图就是这么画的：
 
@@ -78,7 +102,35 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 如果代码要这么写：
 
-![img](./images/ba6dw71c00.png)
+```java{3, 8}
+public class FizzBuzzGame {
+    public static void main (String[] args) {
+        fizzBuzz();
+    }
+
+    private static void fizzBuzz () {
+        for (int i = 1; i <= 200; i++) {
+            String result = handleSingleDigit(i);
+            System.out.printIn(result);
+        }
+    }
+
+    public static String handleSingleDigit (int digit) {
+        String result = "";
+        if (digit % 3 == 0 && digit % 5 == 0) {
+            result = "FizzBuzz";
+        } else if (digit % 3 == 0) {
+            result = "Fizz";
+        } else if (digit % 5 == 0) {
+            result = "Buzz";
+        }
+        if ("".equals(result)) {
+            result = String.valueOf(digit);
+        }
+        return result;
+    }
+}
+```
 
 那么图就是这么画的：
 
@@ -86,9 +138,30 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 整个这个画图的过程，是对程序的一个拆解，这个拆解的过程实际上也是伴随着设计的。这个图的主要目的就是画出一个一个只有数据依赖、没有过程依赖的小型的上下文。
 
-什么叫过程依赖？如下图所示：
+什么叫过程依赖？如下所示：
 
-![img](./images/8s1vnjd253.png)
+```java{7, 11, 15}
+// 经常有人把代码写成这样
+public class FizzBuzz {
+    public static void main (String[] args) {
+        for (int i = 1; i <= 100; i++) {
+            if (i % 15 == 0) {
+                System.out.printIn("FizzBuzz");
+                continue;
+            }
+            if (i % 3 == 0) {
+                System.out.printIn("Fizz");
+                continue;
+            }
+            if (i % 5 == 0) {
+                System.out.printIn("Buzz");
+                continue;
+            }
+            System.out.printIn(i);
+        }
+    }
+}
+```
 
 上面的代码每一段 if 的逻辑执行完都调用了一个 continue（类似的还有 break 和 return），这使得每一个 if 的 block 都是与外面的 for block 耦合的，我无法单独把其抽取成一个函数。也就没法单独测试，它的可测试性一点都不高。
 
@@ -134,7 +207,20 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 我要先实现可以被 3 整除的，再实现可以被 5 整除的，最后实现可以被 3 和 5 整除的，这算是一个驱动的意思。从简单的入手，然后再往复杂的去写。很多人可能会觉得比较无聊。但如果你测试的人足够多，你会发现很多人哪怕是在这样一个无聊的题上，也会把自己坑进去。举个例子我们第 3 步：可以被 3 和 5 整除。当我们实现的时候，我们 if 里那个表达式模 3 模 5 在上还是在下。每次我都会故意写在下面问有没有问题，如下图所示：
 
-![img](./images/h6z6oqjxa3.png)
+```java{8}
+public static String handleSingleDigit (int digit) {
+    if (digit % 3 == 0) {
+        return "Fizz";
+    }
+    if (digit % 5 == 0) {
+        return "Buzz";
+    }
+    if (digit % 3 == 0 && digit % 5 == 0) {
+        return "FizzBuzz";
+    }
+    return String.valueOf(digit);
+}
+```
 
 每次都会有人意识不到。这么简单的题目都会被绕晕，到底要多有自信，才会觉得复杂的需求不会出错呢？所以还是老老实实的给自己加测试防护网吧。测试一个很重要的原则，是防止低级错误，而不是恶意欺骗。
 
@@ -150,7 +236,27 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 到此为止，我们写出来带的代码如下所示：
 
-![img](./images/8jghtk4jkt.png)
+```java
+private static void fizzBuzz () {
+	for (int i = 1; i <= 200; i++) {
+        String result = handleSingleDigit(i);
+        System.out.printIn(result);
+    }
+}
+
+public static String handleSingleDigit (int digit) {
+    if (digit % 3 == 0 && digit % 5 == 0) {
+        return "FizzBuzz";
+    }
+    if (digit % 3 == 0) {
+        return "Fizz";
+    }
+    if (digit % 5 == 0) {
+        return "Buzz";
+    }
+    return String.valueOf(digit);
+}
+```
 
 实现并不复杂，仔细看看这代码还可以，够用，不难懂，那就行了，我们就先不请重构登场了。天下设计都讲究一个不要过度设计，软件设计也不例外，做到这里是很好懂的，那我们也不要画蛇添足。
 
@@ -180,7 +286,39 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 迭代 2 的需求改动不多，这个需求对我们的业务域造成的变化是加入了一个新的特殊数字 7。如果我们还是按照迭代 1 的方式去实现，我们写出来的代码可能很可能如下所示：
 
-![img](./images/jo4w6jmnki.png)
+```java{10, 13, 16, 19, 22, 25, 28, 30}
+public static void fizzBuzz() {
+    for (int i = 1; i <= 200; i++) {
+        String result = handleSingleDigit(i);
+        System.out.printIn(result);
+    }
+}
+
+public static String handleSingleDigit (int digit) {
+    if (digit % 3 == 0 && digit % 5 == 0 && digit % 7 == 0) {
+        return "FizzBuzzWhizz";
+    }
+    if (digit % 5 == 0 && digit % 7 == 0) {
+        return "BuzzWhizz";
+    }
+    if (digit % 3 == 0 && digit % 7 == 0) {
+        return "FizzWhizz";
+    }
+    if (digit % 3 == 0 && digit % 5 == 0) {
+        return "FizzBuzz";
+    }
+    if (digit % 3 == 0) {
+        return "Fizz";
+    }
+    if (digit % 5 == 0) {
+        return "Buzz";
+    }
+    if (digit % 7 == 0) {
+        return "Whizz";
+    }
+    return String.valueOf(digit);
+}
+```
 
 代码有什么问题吗？它最大的问题叫做圈复杂度太高。
 
@@ -199,29 +337,135 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 - 一步切换
 - 旧的再见
 
-什么意思呢？首先不要着急改掉旧的代码，先让旧的保持不变，不过因为 intelliJ 这种利器的存在，使得抽取函数本身不再是一件危险的事（起码在 Java 里是这样），所以我们通常会先把要重构的旧的代码抽个函数，让重构的目标显性化。做这一步的时候，你会发现可能已经要改变代码结构了，起码要改造成我前面所说消除过程依赖，让代码之间只有数据依赖，这样才好提取嘛。提取之后写个新实现，然后在调用点调用新实现，旧的调用点先注释掉，测试通过了，在把旧的调用点代码删掉，打扫战场把旧的实现也删掉。
+什么意思呢？首先不要着急改掉旧的代码，先让旧的保持不变，不过因为 IntelliJ 这种利器的存在，使得抽取函数本身不再是一件危险的事（起码在 Java 里是这样），所以我们通常会先把要重构的旧的代码抽个函数，让重构的目标显性化。做这一步的时候，你会发现可能已经要改变代码结构了，起码要改造成我前面所说消除过程依赖，让代码之间只有数据依赖，这样才好提取嘛。提取之后写个新实现，然后在调用点调用新实现，旧的调用点先注释掉，测试通过了，在把旧的调用点代码删掉，打扫战场把旧的实现也删掉。
 
 具体到这个题呢，我的做法会是如下：
 
 先消除过程依赖。
 
-![img](./images/25syy9kr8w.png)
+```java{9}
+public static void fizzBuzz() {
+    for (int i = 1; i <= 200; i++) {
+        String result = handleSingleDigit(i);
+        System.out.printIn(result);
+    }
+}
+
+public static String handleSingleDigit (int digit) {
+    String result = ""
+    if (digit % 3 == 0 && digit % 5 == 0 && digit % 7 == 0) {
+        result = "FizzBuzzWhizz";
+    } else if (digit % 5 == 0 && digit % 7 == 0) {
+        result = "BuzzWhizz";
+    } else if (digit % 3 == 0 && digit % 7 == 0) {
+        result = "FizzWhizz";
+    } else if (digit % 3 == 0 && digit % 5 == 0) {
+        result = "FizzBuzz";
+    } else if (digit % 3 == 0) {
+        result = "Fizz";
+    } else if (digit % 5 == 0) {
+        result = "Buzz";
+    } else if (digit % 7 == 0) {
+        result = "Whizz";
+    }
+    if (result.equals("")) {
+        result = String.valueOf(digit);
+    }
+    return result;
+}
+```
 
 然后抽取函数，把要重构的代码块先通过函数封起来，划定重构的边界，把输入输出浮现出来。
 
-![img](./images/nj4jof2k02.png)
+```java{2}
+public static String handleSingleDigit (int digit) {
+    String result = handleMod357(digit);
+    if (result.equals("")) {
+        result = String.valueOf(digit);
+    }
+    return result;
+}
+
+private static String handleMod357 (int digit) {
+    String result = "";
+    if (digit % 3 == 0 && digit % 5 == 0 && digit % 7 == 0) {
+        result = "FizzBuzzWhizz";
+    } else if (digit % 5 == 0 && digit % 7 == 0) {
+        result = "BuzzWhizz";
+    } else if (digit % 3 == 0 && digit % 7 == 0) {
+        result = "FizzWhizz";
+    } else if (digit % 3 == 0 && digit % 5 == 0) {
+        result = "FizzBuzz";
+    } else if (digit % 3 == 0) {
+        result = "Fizz";
+    } else if (digit % 5 == 0) {
+        result = "Buzz";
+    } else if (digit % 7 == 0) {
+        result = "Whizz";
+    }
+    return result;
+}
+```
 
 接着写一个新函数。
 
-![img](./images/ite60ckxmr.png)
+```java{9-21}
+public static String handleSingleDigit (int digit) {
+    String result = handleMod357(digit);
+    if (result.equals("")) {
+        result = String.valueOf(digit);
+    }
+    return result;
+}
+
+private static String handleMod357New (int digit) {
+    String result = "";
+    if (digit % 3 == 0) {
+        result += "Fizz";
+    }
+    if (digit % 5 == 0) {
+        result += "Buzz";
+    }
+    if (digit % 7 == 0) {
+        result += "Whizz";
+    }
+    return result;
+}
+```
 
 然后把函数调用点换掉。
 
-![img](./images/qnk3u70v5x.png)
+```java{2,3}
+public static String handleSingleDigit (int digit) {
+    String result = handleMod357New(digit);
+//    String result = handleMod357(digit);
+    if (result.equals("")) {
+        result = String.valueOf(digit);
+    }
+    return result;
+}
+```
 
 然后把旧的函数删掉，打扫现场，该改名改名，该去注释去注释。
 
-![img](./images/0961395g2l.png)
+```java{3-11}
+public static String handleSingleDigit (int digit) {
+    String result = "";
+    if (digit % 3 == 0) {
+        result += "Fizz";
+    }
+    if (digit % 5 == 0) {
+        result += "Buzz";
+    }
+    if (digit % 7 == 0) {
+        result += "Whizz";
+    }
+    if (result.equals("")) {
+        result = String.valueOf(digit);
+    }
+    return result;
+}
+```
 
 上面每一步结束的时候都要保证测试是通过的。软件工程当中有一句很重要的理念：一个问题发现的越晚修正它的成本就越高。本着这个思想，我们重构的时候也要是这个样子，每做一次修改都要看一看有没有问题，如果有问题就立刻修正。如此小步前进，才是我们所谓的重构。
 
@@ -251,7 +495,13 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 到了这个版本的需求里，我们需要处理包含 3，这里面有个测试就不太好了，那是什么呢？输入 3 得到 Fizz 这个，如下图所示：
 
-![img](./images/l5jf781kli.png)
+```java
+@Test
+public void should_return_Fizz_given_input_is_3 () {
+    String actual = FizzBuzzGame.handleSingleDigit(3);
+    assertThat(actual).isEqualTo("Fizz");
+}
+```
 
 这个测试我们测试了什么呢？是测试的被 357 整除还是测试的包含 3？很明显，我们测试的是包含 3。
 
@@ -275,7 +525,41 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 这种更具有表义性的词，我们称之为一般等价类。我们写测试的时候会发现，测试数据经常是无穷无尽的，难道我无穷无尽的测下去吗？肯定是不行的。但是我还是希望能够测的尽量全一点。我测了哪些东西之后，就可以认为我测的比较全了呢，如何来得到一个性价比较高的测试用例集合呢。这时候我们要做一般等价类的分析，在我们这个题里面大概有下面几个等价类：被 3 整除，被 5 整除，被 7 整除，包含 3，包含 5，包含 7。只要是一类的数据，我们只需要一个数据就算是覆盖了这一类的情况。这一类就叫一般等价类，所以我们改完后的代码应该是下面这样的：
 
-![img](./images/574zq29dje.png)
+```java
+public class FizzBuzzGameTest {
+    @Test
+    public void should_return_string_of_origin_digit_given_input_is_not_match_any_rule () {...}
+
+    @Test
+    public void should_return_Fizz_given_input_can_be_divided_by_3 () {...}
+
+    @Test
+    public void should_return_Fizz_given_input_can_be_divided_by_5 () {...}
+
+
+    @Test
+    public void should_return_FizzBuzz_given_input_can_be_divided_by_3_and_5 () {...}
+
+    @Test
+    public void should_return_Whizz_given_input_can_be_divided_by_7 () {...}
+
+    @Test
+    public void should_return_Whizz_given_input_can_be_divided_by_3_and_7 () {...}
+
+    @Test
+    public void should_return_Whizz_given_input_can_be_divided_by_3_and_7 () {...}
+
+    @Test
+    public void should_return_Whizz_given_input_can_be_divided_by_5_and_7 () {...}
+
+    @Test
+    public void should_return_Whizz_given_input_can_be_divided_by_3_5_and_7 () {...}
+
+
+    @Test
+    public void should_return_Whizz_given_input_contain_3 () {...}
+}
+```
 
 执行了之后就能看到这个：
 
@@ -283,13 +567,23 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 我们经常讲敏捷是工作的软件胜过面面俱到的文档。这并不是说我们不写文档，而是说我们的文档也是一种可以工作的软件。就像这个测试一样。我们称之为测试即文档，也叫活的文档。代码同样，也叫代码即文档。所以我们前面讲测试也要追求可读性。实际上测试的可能性比实现代码的可能性要求还要高一些。不过通常来讲也是有一些套路可循的。
 
-首先我们看名字,should 开头，表示输出，given 表示输入，有时候也写个 when 表示被测函数。
+首先我们看名字，should 开头，表示输出，given 表示输入，有时候也写个 when 表示被测函数。
 
-![img](./images/pdb8ld7bcy.png)
+```java
+@Test
+public void should_return_Fizz_given_input_can_be_divided_by_3 () {...}
+```
 
 对应的，我们的名字的结构搬到我们的代码上，三段式表达，given 部分还是输入，when 部分就是被测函数，然后 then 部分写各种 assertion 来校验。
 
-![img](./images/h103ay4ysz.png)
+```java
+//given
+int digit = 6;
+//when
+String actual = FizzBuzzGame.handleSingleDigit(digit);
+//then
+assertThat(actual).isEqualTo("Fizz");
+```
 
 然后就是粒度问题，通常一个测试只测一个 case，这样一旦报错了，我们就可以立刻知道是哪里的问题，从而减少寻错时间。
 
@@ -311,7 +605,31 @@ FizzBuzz 是一个经典的 TDD 入门题目，麻雀虽小，五脏……勉强
 
 有很多人看到业务复杂到这个程度，总算该设计个机制了吧。我见过很多人在这个环节把代码写得特别复杂。然而我写的代码非常简单，如下所示：
 
-![img](./images/bnnfsfvt13.png)
+```java
+public static String handleSingleDigit (int digit) {
+    String digitString = String.valueOf(digit);
+    boolean isContain5 = digitString.contains("5");
+    boolean isContain7 = digitString.contains("7");
+
+    if (digitString.contains("3") && !isContain5) {
+        return "Fizz";
+    }
+    String result = "";
+    if (digit % 3 == 0 && (!isContain5 || isContain7)) {
+        result += "Fizz";
+    }
+    if (digit % 5 == 0 && !isContain7) {
+        result += "Buzz";
+    }
+    if (digit % 7 == 0) {
+        result += "Whizz";
+    }
+    if (result.equals("")) {
+        result = digitString;
+    }
+    return result;
+}
+```
 
 这种代码有什么好处呢？就是它的逻辑跟我们需求描述的逻辑几乎一模一样，我没有新增什么额外的机制。这看起来不是很高大上的样子，很多人就想加个设计。我们要明白，所谓的设计就是加入一些约束，使得做一系列事的方便程度高于了做另外一系列事。我们经常性的想约束想的都是代码，但实际上对代码的约束，本质上还是对人的约束。
 
@@ -323,7 +641,22 @@ Rails 的架构师 DHH 曾经说过约束是你的朋友，什么意思呢？就
 
 我们这些代码也是测试驱动出来的，下面是我新加的测试：
 
-![img](./images/tucc69ah2c.png)
+```java
+@Test
+public void should_return_Whizz_given_input_contain_3_and_5 () {...}
+
+@Test
+public void should_return_Whizz_given_input_contain_5_and_can_be_divided_by_3 () {...}
+
+@Test
+public void should_return_Whizz_given_input_contain_7 () {...}
+
+@Test
+public void should_return_Whizz_given_input_contain_7_and_divided_by_5 () {...}
+
+@Test
+public void should_return_Whizz_given_input_contain_3_5_and_7 () {...}
+```
 
 这些测试通过之后，由于实现的改变，会导致我们前面的测试用例会有很多的改变。无形中制造了测试的麻烦。这个时候我们可以采用测试替身技术。把 3，5，7 的部分再摘出来测试，这样你就不需要关心 3，5，7 部分的输入了。
 
@@ -339,7 +672,7 @@ Rails 的架构师 DHH 曾经说过约束是你的朋友，什么意思呢？就
 
 最后还有一个问题，我写了这老多的细粒度的测试，是不是我原来的那个测试就可以删掉了？我建议不要，一方面，可以当文档存在，另一方面你原来的测试相当于一些主干，而细粒度的测试相当于各种细节分支，当我们未来再引入新的功能的时候，你可以先用主干测试来驱动新功能，然后用细节的测试来进行微调。
 
-写到这里，我用 fizzbuzz 能讲的道理也算讲完了，还有很多道理没讲到，下次换个题目试试。
+写到这里，我用 FizzBuzz 能讲的道理也算讲完了，还有很多道理没讲到，下次换个题目试试。
 
 絮絮叨叨写了这么多，就是讲一个事，技术是由一万个细节组成的，哪怕一个这么简单的题目，也有如此多的点。之前写过一篇文章叫《什么值得背》，就是说了一个道理：高手的解题思路值得背。我也不敢说自己是什么高手，起码写了许多年代码，也就把自己的写代码的思维展示给大家，希望对有心人有所帮助。
 
