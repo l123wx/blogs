@@ -1,3 +1,7 @@
+html {
+  overflow-y: auto;
+}
+
 body {
   --main: #27aa50;
   background-color: var(--bg);
