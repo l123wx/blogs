@@ -108,7 +108,7 @@ export default class Toggle extends PureComponent {
     }
   }
 
-  handleTouchCancel(event) {
+  handleTouchCancel() {
     if (this.startX != null) {
       this.touchStarted = false
       this.startX = null
@@ -162,8 +162,10 @@ export default class Toggle extends PureComponent {
       (className ? ' ' + className : '')
     return (
       <div
+        role="presentation"
         className={classes}
         onClick={this.handleClick}
+        onKeyDown={this.handleClick}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}

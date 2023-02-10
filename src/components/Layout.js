@@ -9,7 +9,7 @@ import moon from '../images/moon.png'
 
 class Layout extends React.Component {
   state = {
-    theme: null,
+    theme: null
   }
   componentDidMount() {
     this.setState({ theme: window.__theme })
@@ -88,7 +88,7 @@ class Layout extends React.Component {
                       src={moon}
                       width="16"
                       height="16"
-                      role="presentation"
+                      alt="moon-icon"
                       style={{ pointerEvents: 'none' }}
                     />
                   ),
@@ -97,7 +97,7 @@ class Layout extends React.Component {
                       src={sun}
                       width="16"
                       height="16"
-                      role="presentation"
+                      alt="sun-icon"
                       style={{ pointerEvents: 'none' }}
                     />
                   ),
