@@ -1,4 +1,4 @@
-import '../fonts/fonts-shared.css'
+import '../styles/fonts.css'
 
 import Typography from 'typography'
 import Wordpress2016 from 'typography-theme-wordpress-2016'
@@ -41,6 +41,8 @@ Wordpress2016.overrideThemeStyles = () => ({
 })
 
 delete Wordpress2016.googleFonts
+
+Wordpress2016.bodyFontFamily.unshift('Red Hat Mono', 'PT Mono')
 
 const typography = new Typography(Wordpress2016)
 
