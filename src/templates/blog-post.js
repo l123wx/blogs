@@ -33,7 +33,8 @@ class BlogPostTemplate extends React.Component {
                             {post.frontmatter.title &&
                                 <h1 style={{
                                     color: 'var(--main)',
-                                    marginBottom: rhythm(1 / 4)
+                                    paddingTop: 0,
+                                    paddingBottom: rhythm(1 / 4)
                                 }}>
                                     {post.frontmatter.title}
                                 </h1>

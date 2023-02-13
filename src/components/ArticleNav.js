@@ -1,6 +1,6 @@
 import { Link } from 'gatsby'
 import React, { useEffect } from 'react'
-import './ArticleNav.css'
+import '../styles/ArticleNav.css'
 
 const ArticleNav = ({ headings }) => {
     const hash = window.location.hash

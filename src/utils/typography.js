@@ -7,6 +7,11 @@ Wordpress2016.overrideThemeStyles = () => ({
   a: {
     color: 'var(--textLink)',
   },
+  'h1, h2, h3, h4, h5, h6': {
+    paddingTop: '3.5rem',
+    paddingBottom: '1.75rem',
+    margin: 0
+  },
   hr: {
     background: 'var(--hr)',
   },
@@ -16,6 +21,9 @@ Wordpress2016.overrideThemeStyles = () => ({
   // These two are for gatsby-remark-autolink-headers:
   'a.anchor': {
     boxShadow: 'none',
+  },
+  'a.anchor.before': {
+    top: '3.5rem'
   },
   'a.anchor svg[aria-hidden="true"]': {
     stroke: 'var(--textLink)',

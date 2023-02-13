@@ -26,8 +26,8 @@ class Layout extends React.Component {
         style={{
           ...scale(location.pathname === rootPath ? 0.75 : 0.5),
           transition: 'all 0.5s',
-          marginBottom: 0,
-          marginTop: 0,
+          paddingBottom: 0,
+          paddingTop: 0
         }}
       >
         <Link
