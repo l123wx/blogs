@@ -26,7 +26,9 @@ class BlogPostTemplate extends React.Component {
                     description={post.frontmatter.spoiler}
                     slug={post.fields.slug}
                 />
-                <ArticleNav headings={headings} />
+                {typeof window !== `undefined` &&
+                    <ArticleNav headings={headings} />
+                }
                 <main>
                     <article>
                         <header>
