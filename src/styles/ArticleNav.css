@@ -39,7 +39,15 @@
 
 .article-nav-box li.active {
   color: var(--main);
+  position: relative;
+}
+
+.article-nav-box li.active::before {
+  content: '';
+  height: 100%;
   border-left: 3px solid var(--main);
+  position: absolute;
+  left: 0;
 }
 
 .article-nav-box li.d1 {
