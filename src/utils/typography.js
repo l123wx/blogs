@@ -10,7 +10,8 @@ Wordpress2016.overrideThemeStyles = () => ({
   'h1, h2, h3, h4, h5, h6': {
     paddingTop: '3.5rem',
     paddingBottom: '1.75rem',
-    margin: 0
+    margin: 0,
+    textTransform: 'unset'
   },
   hr: {
     background: 'var(--hr)',
