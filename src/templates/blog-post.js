@@ -5,12 +5,14 @@ import '../fonts/fonts-post.css'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import Seo from '../components/SEO'
+import ArticleNav from '../components/ArticleNav'
 import { formatPostDate, formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 
 class BlogPostTemplate extends React.Component {
     render() {
         const post = this.props.data.markdownRemark
+        const headings = post.headings
         const siteTitle = get(this.props, 'data.site.siteMetadata.title')
         let {
             previous,
@@ -24,18 +26,23 @@ class BlogPostTemplate extends React.Component {
                     description={post.frontmatter.spoiler}
                     slug={post.fields.slug}
                 />
+                <ArticleNav headings={headings} />
                 <main>
                     <article>
                         <header>
-                            <h1 style={{ color: 'var(--main)' }}>
-                                {post.frontmatter.title}
-                            </h1>
+                            {post.frontmatter.title &&
+                                <h1 style={{
+                                    color: 'var(--main)',
+                                    marginBottom: rhythm(1 / 4)
+                                }}>
+                                    {post.frontmatter.title}
+                                </h1>
+                            }
                             <p
                                 style={{
                                     ...scale(-1 / 5),
                                     display: 'block',
-                                    marginBottom: rhythm(1),
-                                    marginTop: rhythm(-4 / 5),
+                                    marginBottom: rhythm(1)
                                 }}
                             >
                                 {formatPostDate(post.frontmatter.date)}
@@ -77,6 +84,7 @@ class BlogPostTemplate extends React.Component {
                                     justifyContent: 'space-between',
                                     listStyle: 'none',
                                     padding: 0,
+                                    marginTop: '3.5rem'
                                 }}
                             >
                                 <li>
@@ -101,7 +109,7 @@ class BlogPostTemplate extends React.Component {
                         </nav>
                     )}
                 </aside>
-            </Layout>
+            </Layout >
         )
     }
 }
@@ -120,6 +128,11 @@ export const pageQuery = graphql`
       id
       html
       timeToRead
+      headings {
+        id
+        value
+        depth
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

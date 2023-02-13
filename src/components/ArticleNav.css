@@ -1,0 +1,73 @@
+.article-nav {
+  position: sticky;
+  left: 100%;
+  top: 50px;
+  transform: translate(100%);
+  height: 0;
+  width: fit-content;
+}
+
+.article-nav-box {
+  position: absolute;
+  left: 0;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  width: 20vw;
+  padding-left: 50px;
+}
+
+.article-nav-box::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.article-nav-box::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #535353;
+}
+.article-nav-box::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
+}
+
+.article-nav-box li {
+  display: block;
+}
+
+.article-nav-box li.active {
+  color: var(--main);
+  border-left: 3px solid var(--main);
+}
+
+.article-nav-box li.d1 {
+  padding-left: 12px;
+}
+
+.article-nav-box li.d2 {
+  padding-left: 24px;
+}
+
+.article-nav-box li.d3 {
+  padding-left: 36px;
+}
+
+.article-nav-box li.d4 {
+  padding-left: 48px;
+}
+
+.article-nav-box li.d5 {
+  padding-left: 60px;
+}
+
+.article-nav-box li.d6 {
+  padding-left: 72px;
+}
+
+.article-nav-box li a {
+  display: block;
+  color: var(--text-primary);
+  box-shadow: none;
+}

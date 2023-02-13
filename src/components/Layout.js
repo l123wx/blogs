@@ -68,7 +68,7 @@ class Layout extends React.Component {
             marginLeft: 'auto',
             marginRight: 'auto',
             maxWidth: rhythm(24),
-            padding: `2.625rem ${rhythm(3 / 4)}`,
+            padding: `2.625rem ${rhythm(3 / 4)}`
           }}
         >
           <header
@@ -76,7 +76,8 @@ class Layout extends React.Component {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: '2.625rem',
+              marginBottom: '3.5rem',
+              marginTop: 0
             }}
           >
             {this.renderHeader()}
@@ -113,9 +114,15 @@ class Layout extends React.Component {
               <div style={{ height: '24px' }} />
             )}
           </header>
-          {children}
+          <div
+            style={{
+              position: 'relative'
+            }}
+          >
+            {children}
+          </div>
         </div>
-      </div>
+      </div >
     )
   }
 }
