@@ -9,13 +9,19 @@ class ArticleItem extends React.Component {
         const { slug, title, spoiler, date, timeToRead } = this.props
 
         return (
-            <article>
+            <article
+                style={{
+                    marginBottom: rhythm(2)
+                }}
+            >
                 <header>
                     <h3
                         style={{
                             fontFamily: 'Montserrat, sans-serif',
                             fontSize: rhythm(1),
                             marginBottom: rhythm(1 / 4),
+                            paddingTop: 0,
+                            paddingBottom: 0
                         }}
                     >
                         <Link

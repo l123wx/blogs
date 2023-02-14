@@ -19,7 +19,7 @@ class BlogIndexTemplate extends React.Component {
         <Seo />
         <aside
           style={{
-            marginBottom: rhythm(2)
+            marginBottom: rhythm(3)
           }}
         >
           <Bio />
