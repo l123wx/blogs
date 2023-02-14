@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import lodash from 'lodash'
+import { isBrowser } from '../utils/helpers'
 
 const calcDistanceToViewTop = (element) => element.getBoundingClientRect().top
 
@@ -30,10 +31,10 @@ const ArticleContent = ({ html, onActiveArticleTagChange }) => {
             onActiveArticleTagChange(tagElList[activeArticleTagIndex].parentElement.id)
         }, 100)
 
-        window.addEventListener('scroll', updateActiveArticleTagId)
+        isBrowser && window.addEventListener('scroll', updateActiveArticleTagId)
 
         return () => {
-            window.removeEventListener('scroll', updateActiveArticleTagId)
+            isBrowser && window.removeEventListener('scroll', updateActiveArticleTagId)
         }
     }, [onActiveArticleTagChange])
 

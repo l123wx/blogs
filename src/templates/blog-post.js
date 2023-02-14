@@ -9,12 +9,13 @@ import ArticleNav from '../components/ArticleNav'
 import ArticleContent from '../components/ArticleContent'
 import { formatPostDate, formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
+import { isBrowser } from '../utils/helpers'
 
 const BlogPostTemplate = (props) => {
     const post = props.data.markdownRemark
     const headings = post.headings
     const siteTitle = get(props, 'data.site.siteMetadata.title')
-    const hash = window.location.hash
+    const hash = isBrowser && window.location.hash
     const [activeArticleTagId, setActiveArticleTagId] = useState(null)
     let {
         previous,
@@ -32,7 +33,7 @@ const BlogPostTemplate = (props) => {
                 description={post.frontmatter.spoiler}
                 slug={post.fields.slug}
             />
-            {typeof window !== `undefined` &&
+            {isBrowser &&
                 <ArticleNav
                     headings={headings}
                     activeArticleTagId={activeArticleTagId}

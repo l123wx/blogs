@@ -19,3 +19,5 @@ export function formatPostDate(date) {
     { day: 'numeric', month: 'long', year: 'numeric' },
   )
 }
+
+export const isBrowser = typeof window !== 'undefined'
