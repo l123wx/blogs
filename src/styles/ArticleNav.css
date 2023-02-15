@@ -7,12 +7,19 @@
   width: fit-content;
 }
 
+@media (max-width: 1180px) {
+  .article-nav {
+    display: none;
+  }
+}
+
 .article-nav-box {
   position: absolute;
   left: 0;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
   width: 20vw;
+  max-width: 300px;
   padding-left: 50px;
 }
 
