@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, graphql } from 'gatsby'
+import { Link, graphql, PageProps } from 'gatsby'
 import get from 'lodash/get'
 import '../fonts/fonts-post.css'
 import Bio from '../components/Bio'
@@ -10,13 +10,14 @@ import ArticleContent from '../components/ArticleContent'
 import { formatPostDate, formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { isBrowser } from '../utils/helpers'
+import { BlogPostProps } from '../../gatsby-node'
 
-const BlogPostTemplate = (props) => {
+const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) => {
     const post = props.data.markdownRemark
-    const headings = post.headings
+    const headings = post.headings?.filter(item => item !== null) as Queries.MarkdownHeading[] | undefined
     const siteTitle = get(props, 'data.site.siteMetadata.title')
     const hash = isBrowser && window.location.hash
-    const [activeArticleTagId, setActiveArticleTagId] = useState(null)
+    const [activeArticleTagId, setActiveArticleTagId] = useState<ActiveArticleTagId>(null)
     let {
         previous,
         next
@@ -27,11 +28,11 @@ const BlogPostTemplate = (props) => {
     }, [hash])
 
     return (
-        <Layout location={props.location} title={siteTitle}>
+        <Layout location={props.location} title={siteTitle || ''}>
             <Seo
-                title={post.frontmatter.title}
-                description={post.frontmatter.spoiler}
-                slug={post.fields.slug}
+                title={post.frontmatter?.title}
+                description={post.frontmatter?.spoiler}
+                slug={post.fields?.slug}
             />
             {isBrowser &&
                 <ArticleNav
@@ -42,7 +43,7 @@ const BlogPostTemplate = (props) => {
             <main>
                 <article>
                     <header style={{ marginBottom: rhythm(1) }}>
-                        {post.frontmatter.title &&
+                        {post.frontmatter?.title &&
                             <h1 style={{
                                 color: 'var(--main)',
                                 paddingTop: 0,
@@ -58,16 +59,18 @@ const BlogPostTemplate = (props) => {
                                 marginBottom: 0
                             }}
                         >
-                            {formatPostDate(post.frontmatter.date)}
-                            {` • ${formatReadingTime(post.timeToRead)}`}
+                            {`${formatPostDate(post.frontmatter?.date || 0)} • ${formatReadingTime(post.timeToRead || 0)}`}
                         </p>
                     </header>
-                    <ArticleContent
-                        html={post.html}
-                        onActiveArticleTagChange={(_activeArticleTagId) => {
-                            setActiveArticleTagId(_activeArticleTagId)
-                        }}
-                    />
+                    {post.html &&
+                        <ArticleContent
+                            html={post.html}
+                            activeArticleTagId={activeArticleTagId}
+                            onActiveArticleTagChange={(_activeArticleTagId) => {
+                                setActiveArticleTagId(_activeArticleTagId)
+                            }}
+                        />
+                    }
                 </article>
             </main>
             <aside
@@ -108,21 +111,21 @@ const BlogPostTemplate = (props) => {
                             <li>
                                 {previous && (
                                     <Link
-                                        to={'/' + previous.fields.slug}
+                                        to={'/' + previous.fields?.slug}
                                         rel="prev"
                                         style={{ marginRight: 20 }}
                                     >
-                                        ← {previous.frontmatter.title}
+                                        ← {previous.frontmatter?.title}
                                     </Link>
                                 )}
                             </li>
                             <li>
                                 {next && (
                                     <Link
-                                        to={'/' + next.fields.slug}
+                                        to={'/' + next.fields?.slug}
                                         rel="next"
                                     >
-                                        {next.frontmatter.title} →
+                                        {next.frontmatter?.title} →
                                     </Link>
                                 )}
                             </li>
@@ -135,6 +138,13 @@ const BlogPostTemplate = (props) => {
 }
 
 export default BlogPostTemplate
+
+type QueryData = {
+    site: {
+        siteMetadata: Queries.SiteSiteMetadata
+    }
+    markdownRemark: Queries.MarkdownRemark
+}
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {

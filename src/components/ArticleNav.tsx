@@ -2,8 +2,17 @@ import { Link } from 'gatsby'
 import React, { useEffect, useRef } from 'react'
 import '../styles/ArticleNav.css'
 
-const ArticleNav = ({ headings, activeArticleTagId }) => {
-    const activeArticleTagRef = useRef(null)
+type Props = {
+    headings?: ReadonlyArray<{
+        id: string | null
+        value: string | null
+        depth: number | null
+    }>
+    activeArticleTagId: ActiveArticleTagId
+}
+
+const ArticleNav: React.FC<Props> = ({ headings = [], activeArticleTagId }) => {
+    const activeArticleTagRef = useRef<HTMLLIElement>(null)
 
     useEffect(
         () => activeArticleTagRef.current?.scrollIntoView({ block: 'nearest' }),
@@ -17,7 +26,6 @@ const ArticleNav = ({ headings, activeArticleTagId }) => {
                     {
                         headings.map(item => {
                             const isActiveTag = activeArticleTagId && activeArticleTagId === item.id
-
                             return (
                                 <li
                                     key={item.id}

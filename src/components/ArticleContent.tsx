@@ -2,15 +2,25 @@ import React, { useEffect } from 'react'
 import lodash from 'lodash'
 import { isBrowser } from '../utils/helpers'
 
-const calcDistanceToViewTop = (element) => element.getBoundingClientRect().top
+const calcDistanceToViewTop = (element: HTMLElement | null) => element
+    ? element.getBoundingClientRect().top
+    : 0
 
-const ArticleContent = ({ html, onActiveArticleTagChange }) => {
+type Props = {
+    html: string,
+    activeArticleTagId: ActiveArticleTagId
+    onActiveArticleTagChange: (tagId: ActiveArticleTagId) => void
+}
+
+const ArticleContent: React.FC<Props> = ({ html, onActiveArticleTagChange, activeArticleTagId }) => {
     useEffect(() => {
         const updateActiveArticleTagId = lodash.throttle(() => {
             let activeArticleTagIndex = 0
             const tagElList = document.querySelectorAll('.anchor.before')
 
-            for (let [index, element] of tagElList.entries()) {
+            if (!tagElList.length) return
+
+            for (let [index, element] of Array.from(tagElList).entries()) {
                 const targetElementDistanceToViewTop = calcDistanceToViewTop(element.parentElement)
                 if (index === 0 && targetElementDistanceToViewTop >= 0) {
                     break
@@ -28,7 +38,8 @@ const ArticleContent = ({ html, onActiveArticleTagChange }) => {
                 }
             }
 
-            onActiveArticleTagChange(tagElList[activeArticleTagIndex].parentElement.id)
+            const newActiveArticleTagId = tagElList[activeArticleTagIndex].parentElement?.id || null
+            newActiveArticleTagId !== activeArticleTagId && onActiveArticleTagChange(newActiveArticleTagId)
         }, 100)
 
         isBrowser && window.addEventListener('scroll', updateActiveArticleTagId)

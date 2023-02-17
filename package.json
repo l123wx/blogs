@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "elvis-blogs",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "gatsby": "^5.5.0",
+    "gatsby": "^5.6.0",
     "gatsby-plugin-catch-links": "^5.5.0",
     "gatsby-plugin-ebook": "^1.0.2",
     "gatsby-plugin-feed": "^5.5.0",
@@ -35,7 +35,13 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "prettier": "^2.8.3"
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-helmet": "^6.1.6",
+    "@types/typography": "^0.16.4",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.5"
   },
   "keywords": [
     "gatsby"
@@ -48,7 +54,7 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
