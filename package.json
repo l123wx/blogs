@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@vercel/analytics": "^0.1.9",
     "gatsby": "^5.6.0",
     "gatsby-plugin-catch-links": "^5.5.0",
     "gatsby-plugin-ebook": "^1.0.2",

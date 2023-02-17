@@ -1,4 +1,5 @@
 import React from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 type Props = {
     htmlAttributes: JSX.IntrinsicElements["html"]
@@ -26,6 +27,7 @@ const HTML: React.FC<Props> = ({
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
+                <Analytics />
                 {headComponents}
             </head>
             <body {...bodyAttributes} className="light" >
