@@ -45,7 +45,7 @@ Wordpress2016.overrideThemeStyles = () => ({
     },
     'blockquote.translation': {
         fontSize: '1em',
-    },
+    }
 })
 
 delete Wordpress2016.googleFonts
