@@ -1,17 +1,6 @@
 @import '../fonts/fonts-shared.css';
 
 @font-face {
-    font-family: 'Red Hat Mono';
-    font-weight: 400;
-    src: url(../fonts/files/RedHatMono-Regular.ttf)
-}
-@font-face {
-    font-family: 'Red Hat Mono';
-    font-weight: 600;
-    src: url(../fonts/files/RedHatMono-Bold.ttf)
-}
-
-@font-face {
     font-family: 'PT Mono';
     font-weight: 400;
     src: url(../fonts/files/PTM55F.ttf);

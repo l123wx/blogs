@@ -47,7 +47,7 @@ code[class*='language-'],
 pre[class*='language-'] {
   color: white;
   background: none;
-  font-family: 'Red Hat Mono', 'PT Mono';
+  font-family: 'PT Mono';
   font-feature-settings: normal;
   text-align: left;
   white-space: pre;
