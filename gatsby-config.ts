@@ -4,8 +4,8 @@ const config: GatsbyConfig = {
     siteMetadata: {
         title: "Elvis's blogs",
         author: 'Elvis',
-        description: 'Personal blog by Elvis.',
-        siteUrl: 'https://blogs-l123wx.vercel.com',
+        description: "Personal blog by Elvis. Hello, I'm Elvis, a front-end engineer, this is my personal blogs",
+        siteUrl: 'https://l123wx.buzz',
         social: {
             github: 'https://github.com/l123wx'
         }
