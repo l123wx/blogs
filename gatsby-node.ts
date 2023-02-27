@@ -54,11 +54,11 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
 
     posts.forEach((post, index) => {
         if (post.node && post.node.fields) {
-            const previous =
+            const next =
                 index === posts.length - 1
                     ? null
                     : posts[index + 1].node
-            const next = index === 0 ? null : posts[index - 1].node
+            const previous = index === 0 ? null : posts[index - 1].node
 
             createPage<BlogPostProps>({
                 path: post.node.fields.slug,
