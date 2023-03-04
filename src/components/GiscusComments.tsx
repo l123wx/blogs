@@ -3,7 +3,7 @@ import Giscus from '@giscus/react'
 import useTheme from '../hooks/useTheme'
 
 const GiscusComments: React.FC = () => {
-    const [theme, setTheme] = useState<ThemeType | null>(window.__theme)
+    const [theme, setTheme] = useState<ThemeType | null>(null)
 
     useTheme(newTheme => setTheme(newTheme))
 

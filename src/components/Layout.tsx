@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Layout: React.FC<Props> = ({ location, title, children }) => {
-    const [theme, setTheme] = useState<ThemeType | null>(window.__theme)
+    const [theme, setTheme] = useState<ThemeType | null>(null)
 
     useTheme(newTheme => setTheme(newTheme))
 
