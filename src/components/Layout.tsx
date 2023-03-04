@@ -6,6 +6,7 @@ import Helmet from 'react-helmet'
 import { rhythm, scale } from '../utils/typography'
 import sun from '../images/sun.png'
 import moon from '../images/moon.png'
+import useTheme from '../hooks/useTheme'
 
 type Props = {
     location: PageProps["location"]
@@ -14,14 +15,9 @@ type Props = {
 }
 
 const Layout: React.FC<Props> = ({ location, title, children }) => {
-    const [theme, setTheme] = useState<ThemeType | null>(null)
+    const [theme, setTheme] = useState<ThemeType | null>(window.__theme)
 
-    useEffect(() => {
-        setTheme(window.__theme)
-        window.__onThemeChange = () => {
-            setTheme(window.__theme)
-        }
-    }, [])
+    useTheme(newTheme => setTheme(newTheme))
 
     const renderHeader = (props: Props) => {
         const { location, title } = props

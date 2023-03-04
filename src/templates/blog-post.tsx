@@ -7,6 +7,7 @@ import Layout from '../components/Layout'
 import Seo from '../components/SEO'
 import ArticleNav from '../components/ArticleNav'
 import ArticleContent from '../components/ArticleContent'
+import GiscusComments from '../components/GiscusComments'
 import { formatPostDate, formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { isBrowser } from '../utils/helpers'
@@ -98,7 +99,7 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                 <Bio />
                 {(previous || next) && (
                     <nav>
-                        <ul
+                        <div
                             style={{
                                 display: 'flex',
                                 flexWrap: 'wrap',
@@ -108,7 +109,7 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                                 marginTop: '3.5rem'
                             }}
                         >
-                            <li>
+                            <div>
                                 {previous && (
                                     <Link
                                         to={'/' + previous.fields?.slug}
@@ -118,8 +119,8 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                                         ← {previous.frontmatter?.title}
                                     </Link>
                                 )}
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 {next && (
                                     <Link
                                         to={'/' + next.fields?.slug}
@@ -128,11 +129,12 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                                         {next.frontmatter?.title} →
                                     </Link>
                                 )}
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </nav>
                 )}
             </aside>
+            <GiscusComments />
         </Layout >
     )
 }
