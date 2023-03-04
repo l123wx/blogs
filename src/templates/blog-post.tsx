@@ -7,6 +7,7 @@ import Layout from '../components/Layout'
 import Seo from '../components/SEO'
 import ArticleNav from '../components/ArticleNav'
 import ArticleContent from '../components/ArticleContent'
+import GiscusComments from '../components/GiscusComments'
 import { formatPostDate, formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { isBrowser } from '../utils/helpers'
@@ -29,110 +30,113 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
 
     return (
         <Layout location={props.location} title={siteTitle || ''}>
-            <Seo
-                title={post.frontmatter?.title}
-                description={post.frontmatter?.spoiler}
-                slug={post.fields?.slug}
-            />
-            {isBrowser &&
-                <ArticleNav
-                    headings={headings}
-                    activeArticleTagId={activeArticleTagId}
+            <div style={{ position: 'relative' }}>
+                <Seo
+                    title={post.frontmatter?.title}
+                    description={post.frontmatter?.spoiler}
+                    slug={post.fields?.slug}
                 />
-            }
-            <main>
-                <article>
-                    <header style={{ marginBottom: rhythm(1) }}>
-                        {post.frontmatter?.title &&
-                            <h1 style={{
-                                color: 'var(--main)',
-                                paddingTop: 0,
-                                paddingBottom: rhythm(1 / 4)
-                            }}>
-                                {post.frontmatter.title}
-                            </h1>
+                {isBrowser &&
+                    <ArticleNav
+                        headings={headings}
+                        activeArticleTagId={activeArticleTagId}
+                    />
+                }
+                <main>
+                    <article>
+                        <header style={{ marginBottom: rhythm(1) }}>
+                            {post.frontmatter?.title &&
+                                <h1 style={{
+                                    color: 'var(--main)',
+                                    paddingTop: 0,
+                                    paddingBottom: rhythm(1 / 4)
+                                }}>
+                                    {post.frontmatter.title}
+                                </h1>
+                            }
+                            <p
+                                style={{
+                                    ...scale(-1 / 5),
+                                    display: 'block',
+                                    marginBottom: 0
+                                }}
+                            >
+                                {`${formatPostDate(post.frontmatter?.date || 0)} • ${formatReadingTime(post.timeToRead || 0)}`}
+                            </p>
+                        </header>
+                        {post.html &&
+                            <ArticleContent
+                                html={post.html}
+                                activeArticleTagId={activeArticleTagId}
+                                onActiveArticleTagChange={(_activeArticleTagId) => {
+                                    setActiveArticleTagId(_activeArticleTagId)
+                                }}
+                            />
                         }
-                        <p
-                            style={{
-                                ...scale(-1 / 5),
-                                display: 'block',
-                                marginBottom: 0
-                            }}
-                        >
-                            {`${formatPostDate(post.frontmatter?.date || 0)} • ${formatReadingTime(post.timeToRead || 0)}`}
-                        </p>
-                    </header>
-                    {post.html &&
-                        <ArticleContent
-                            html={post.html}
-                            activeArticleTagId={activeArticleTagId}
-                            onActiveArticleTagChange={(_activeArticleTagId) => {
-                                setActiveArticleTagId(_activeArticleTagId)
-                            }}
-                        />
-                    }
-                </article>
-            </main>
-            <aside
-                style={{
-                    marginTop: rhythm(2)
-                }}
-            >
-                <h3
+                    </article>
+                </main>
+                <aside
                     style={{
-                        fontFamily: 'Montserrat, sans-serif',
-                        marginTop: rhythm(0.25),
+                        marginTop: rhythm(2)
                     }}
                 >
-                    <Link
+                    <h3
                         style={{
-                            boxShadow: 'none',
-                            textDecoration: 'none',
-                            color: 'var(--main)',
+                            fontFamily: 'Montserrat, sans-serif',
+                            marginTop: rhythm(0.25),
                         }}
-                        to={'/'}
                     >
-                        {siteTitle}
-                    </Link>
-                </h3>
-                <Bio />
-                {(previous || next) && (
-                    <nav>
-                        <ul
+                        <Link
                             style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                justifyContent: 'space-between',
-                                listStyle: 'none',
-                                padding: 0,
-                                marginTop: '3.5rem'
+                                boxShadow: 'none',
+                                textDecoration: 'none',
+                                color: 'var(--main)',
                             }}
+                            to={'/'}
                         >
-                            <li>
-                                {previous && (
-                                    <Link
-                                        to={'/' + previous.fields?.slug}
-                                        rel="prev"
-                                        style={{ marginRight: 20 }}
-                                    >
-                                        ← {previous.frontmatter?.title}
-                                    </Link>
-                                )}
-                            </li>
-                            <li>
-                                {next && (
-                                    <Link
-                                        to={'/' + next.fields?.slug}
-                                        rel="next"
-                                    >
-                                        {next.frontmatter?.title} →
-                                    </Link>
-                                )}
-                            </li>
-                        </ul>
-                    </nav>
-                )}
-            </aside>
+                            {siteTitle}
+                        </Link>
+                    </h3>
+                    <Bio />
+                    {(previous || next) && (
+                        <nav>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'space-between',
+                                    listStyle: 'none',
+                                    padding: 0,
+                                    marginTop: '3.5rem'
+                                }}
+                            >
+                                <div>
+                                    {previous && (
+                                        <Link
+                                            to={'/' + previous.fields?.slug}
+                                            rel="prev"
+                                            style={{ marginRight: 20 }}
+                                        >
+                                            ← {previous.frontmatter?.title}
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {next && (
+                                        <Link
+                                            to={'/' + next.fields?.slug}
+                                            rel="next"
+                                        >
+                                            {next.frontmatter?.title} →
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </nav>
+                    )}
+                </aside>
+            </div>
+            <GiscusComments />
         </Layout >
     )
 }
