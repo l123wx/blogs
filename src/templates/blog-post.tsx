@@ -24,12 +24,22 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
         next
     } = props.pageContext
 
+    const [theme, setTheme] = useState<ThemeType | null>(
+        () => isBrowser ? window.__theme : null
+    )
+
+    useEffect(() => {
+        window.__onThemeChange = (newTheme) => {
+            setTheme(newTheme)
+        }
+    }, [])
+
     useEffect(() => {
         setActiveArticleTagId(hash ? decodeURI(hash).split('#')[1] : null)
     }, [hash])
 
     return (
-        <Layout location={props.location} title={siteTitle || ''}>
+        <Layout location={props.location} title={siteTitle || ''} theme={theme}>
             <div style={{ position: 'relative' }}>
                 <Seo
                     title={post.frontmatter?.title}
@@ -136,7 +146,7 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                     )}
                 </aside>
             </div>
-            <GiscusComments />
+            <GiscusComments theme={theme} />
         </Layout >
     )
 }

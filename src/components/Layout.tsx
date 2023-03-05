@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode } from 'react'
 import { Link, PageProps } from 'gatsby'
 import Toggle from './Toggle'
 import Helmet from 'react-helmet'
@@ -6,20 +6,16 @@ import Helmet from 'react-helmet'
 import { rhythm, scale } from '../utils/typography'
 import sun from '../images/sun.png'
 import moon from '../images/moon.png'
-import useTheme from '../hooks/useTheme'
 
 type Props = {
+    theme: ThemeType | null
     location: PageProps["location"]
     title: string
     children?: ReactNode
 }
 
-const Layout: React.FC<Props> = ({ location, title, children }) => {
-    const [theme, setTheme] = useState<ThemeType | null>(null)
-
-    useTheme(newTheme => setTheme(newTheme))
-
-    const renderHeader = (props: Props) => {
+const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
+    const renderHeader = (props: Omit<Props, 'theme'>) => {
         const { location, title } = props
         // @ts-ignore
         const rootPath = `${__PATH_PREFIX__}/`
