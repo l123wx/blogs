@@ -8,7 +8,7 @@ import sun from '../images/sun.png'
 import moon from '../images/moon.png'
 
 type Props = {
-    theme: ThemeType | null
+    theme: ThemeType
     location: PageProps["location"]
     title: string
     children?: ReactNode
@@ -78,38 +78,34 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                     }}
                 >
                     {renderHeader({ location, title })}
-                    {theme !== null ? (
-                        <Toggle
-                            icons={{
-                                checked: (
-                                    <img
-                                        src={moon}
-                                        width="16"
-                                        height="16"
-                                        alt="moon-icon"
-                                        style={{ pointerEvents: 'none' }}
-                                    />
-                                ),
-                                unchecked: (
-                                    <img
-                                        src={sun}
-                                        width="16"
-                                        height="16"
-                                        alt="sun-icon"
-                                        style={{ pointerEvents: 'none' }}
-                                    />
-                                )
-                            }}
-                            checked={theme === 'dark'}
-                            onChange={checked =>
-                                window.__setPreferredTheme(
-                                    checked ? 'dark' : 'light'
-                                )
-                            }
-                        />
-                    ) : (
-                        <div style={{ height: '24px' }} />
-                    )}
+                    <Toggle
+                        icons={{
+                            checked: (
+                                <img
+                                    src={moon}
+                                    width="16"
+                                    height="16"
+                                    alt="moon-icon"
+                                    style={{ pointerEvents: 'none' }}
+                                />
+                            ),
+                            unchecked: (
+                                <img
+                                    src={sun}
+                                    width="16"
+                                    height="16"
+                                    alt="sun-icon"
+                                    style={{ pointerEvents: 'none' }}
+                                />
+                            )
+                        }}
+                        checked={theme === 'dark'}
+                        onChange={checked =>
+                            window.__setPreferredTheme(
+                                checked ? 'dark' : 'light'
+                            )
+                        }
+                    />
                 </header>
                 <div
                     style={{

@@ -24,8 +24,8 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
         next
     } = props.pageContext
 
-    const [theme, setTheme] = useState<ThemeType | null>(
-        () => isBrowser ? window.__theme : null
+    const [theme, setTheme] = useState<ThemeType>(
+        () => isBrowser ? window.__theme : 'dark'
     )
 
     useEffect(() => {
@@ -46,12 +46,10 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                     description={post.frontmatter?.spoiler}
                     slug={post.fields?.slug}
                 />
-                {isBrowser &&
-                    <ArticleNav
-                        headings={headings}
-                        activeArticleTagId={activeArticleTagId}
-                    />
-                }
+                <ArticleNav
+                    headings={headings}
+                    activeArticleTagId={activeArticleTagId}
+                />
                 <main>
                     <article>
                         <header style={{ marginBottom: rhythm(1) }}>

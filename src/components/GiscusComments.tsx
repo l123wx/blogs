@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import Giscus from '@giscus/react'
 
 type Props = {
-    theme: ThemeType | null
+    theme: ThemeType
 }
 
 const GiscusComments: React.FC<Props> = ({ theme }) => {

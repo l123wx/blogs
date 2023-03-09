@@ -13,8 +13,8 @@ const BlogIndexTemplate: React.FC<PageProps<QueryData>> = ({ data, location }) =
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
 
-    const [theme, setTheme] = useState<ThemeType | null>(
-        () => isBrowser ? window.__theme : null
+    const [theme, setTheme] = useState<ThemeType>(
+        () => isBrowser ? window.__theme : 'dark'
     )
 
     useEffect(() => {
