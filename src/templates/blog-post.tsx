@@ -13,23 +13,21 @@ import { rhythm, scale } from '../utils/typography'
 import { isBrowser } from '../utils/helpers'
 import { BlogPostProps } from '../../gatsby-node'
 
-const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) => {
+const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = props => {
     const post = props.data.markdownRemark
-    const headings = post.headings?.filter(item => item !== null) as Queries.MarkdownHeading[] | undefined
+    const headings = post.headings?.filter(item => item !== null) as
+        | Queries.MarkdownHeading[]
+        | undefined
     const siteTitle = get(props, 'data.site.siteMetadata.title')
     const hash = isBrowser && window.location.hash
     const [activeArticleTagId, setActiveArticleTagId] = useState<ActiveArticleTagId>(null)
-    let {
-        previous,
-        next
-    } = props.pageContext
+    let { previous, next } = props.pageContext
 
-    const [theme, setTheme] = useState<ThemeType>(
-        () => isBrowser ? window.__theme : 'dark'
-    )
+    const [theme, setTheme] = useState<ThemeType>(null)
 
     useEffect(() => {
-        window.__onThemeChange = (newTheme) => {
+        setTheme(window.__theme)
+        window.__onThemeChange = newTheme => {
             setTheme(newTheme)
         }
     }, [])
@@ -46,22 +44,21 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                     description={post.frontmatter?.spoiler}
                     slug={post.fields?.slug}
                 />
-                <ArticleNav
-                    headings={headings}
-                    activeArticleTagId={activeArticleTagId}
-                />
+                <ArticleNav headings={headings} activeArticleTagId={activeArticleTagId} />
                 <main>
                     <article>
                         <header style={{ marginBottom: rhythm(1) }}>
-                            {post.frontmatter?.title &&
-                                <h1 style={{
-                                    color: 'var(--main)',
-                                    paddingTop: 0,
-                                    paddingBottom: rhythm(1 / 4)
-                                }}>
+                            {post.frontmatter?.title && (
+                                <h1
+                                    style={{
+                                        color: 'var(--main)',
+                                        paddingTop: 0,
+                                        paddingBottom: rhythm(1 / 4)
+                                    }}
+                                >
                                     {post.frontmatter.title}
                                 </h1>
-                            }
+                            )}
                             <p
                                 style={{
                                     ...scale(-1 / 5),
@@ -69,18 +66,20 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                                     marginBottom: 0
                                 }}
                             >
-                                {`${formatPostDate(post.frontmatter?.date || 0)} • ${formatReadingTime(post.timeToRead || 0)}`}
+                                {`${formatPostDate(
+                                    post.frontmatter?.date || 0
+                                )} • ${formatReadingTime(post.timeToRead || 0)}`}
                             </p>
                         </header>
-                        {post.html &&
+                        {post.html && (
                             <ArticleContent
                                 html={post.html}
                                 activeArticleTagId={activeArticleTagId}
-                                onActiveArticleTagChange={(_activeArticleTagId) => {
+                                onActiveArticleTagChange={_activeArticleTagId => {
                                     setActiveArticleTagId(_activeArticleTagId)
                                 }}
                             />
-                        }
+                        )}
                     </article>
                 </main>
                 <aside
@@ -91,14 +90,14 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                     <h3
                         style={{
                             fontFamily: 'Montserrat, sans-serif',
-                            marginTop: rhythm(0.25),
+                            marginTop: rhythm(0.25)
                         }}
                     >
                         <Link
                             style={{
                                 boxShadow: 'none',
                                 textDecoration: 'none',
-                                color: 'var(--main)',
+                                color: 'var(--main)'
                             }}
                             to={'/'}
                         >
@@ -131,10 +130,7 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                                 </div>
                                 <div>
                                     {next && (
-                                        <Link
-                                            to={'/' + next.fields?.slug}
-                                            rel="next"
-                                        >
+                                        <Link to={'/' + next.fields?.slug} rel="next">
                                             {next.frontmatter?.title} →
                                         </Link>
                                     )}
@@ -144,8 +140,8 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = (props) 
                     )}
                 </aside>
             </div>
-            <GiscusComments theme={theme} />
-        </Layout >
+            {theme && <GiscusComments theme={theme} />}
+        </Layout>
     )
 }
 
@@ -159,30 +155,30 @@ type QueryData = {
 }
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        author
-      }
+    query BlogPostBySlug($slug: String!) {
+        site {
+            siteMetadata {
+                title
+                author
+            }
+        }
+        markdownRemark(fields: { slug: { eq: $slug } }) {
+            id
+            html
+            timeToRead
+            headings {
+                id
+                value
+                depth
+            }
+            frontmatter {
+                title
+                date(formatString: "MMMM DD, YYYY")
+                spoiler
+            }
+            fields {
+                slug
+            }
+        }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      timeToRead
-      headings {
-        id
-        value
-        depth
-      }
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        spoiler
-      }
-      fields {
-        slug
-      }
-    }
-  }
 `

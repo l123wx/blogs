@@ -1,4 +1,4 @@
-type ThemeType = 'dark' | 'light'
+type ThemeType = 'dark' | 'light' | null
 
 declare interface Window {
     __theme: ThemeType
