@@ -9,7 +9,7 @@ import moon from '../images/moon.png'
 
 type Props = {
     theme: ThemeType
-    location: PageProps["location"]
+    location: PageProps['location']
     title: string
     children?: ReactNode
 }
@@ -33,7 +33,7 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                     style={{
                         boxShadow: 'none',
                         textDecoration: 'none',
-                        color: 'var(--textTitle)',
+                        color: 'var(--textTitle)'
                     }}
                     to={'/'}
                 >
@@ -49,14 +49,14 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                 color: 'var(--textNormal)',
                 background: 'var(--bg)',
                 transition: 'color 0.2s ease-out, background 0.2s ease-out',
-                minHeight: '100vh',
+                minHeight: '100vh'
             }}
         >
             <Helmet
                 meta={[
                     {
                         name: 'theme-color',
-                        content: theme === 'light' ? '#ffffff' : '#282c35',
+                        content: theme === 'light' ? '#ffffff' : '#282c35'
                     }
                 ]}
             />
@@ -78,34 +78,34 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                     }}
                 >
                     {renderHeader({ location, title })}
-                    <Toggle
-                        icons={{
-                            checked: (
-                                <img
-                                    src={moon}
-                                    width="16"
-                                    height="16"
-                                    alt="moon-icon"
-                                    style={{ pointerEvents: 'none' }}
-                                />
-                            ),
-                            unchecked: (
-                                <img
-                                    src={sun}
-                                    width="16"
-                                    height="16"
-                                    alt="sun-icon"
-                                    style={{ pointerEvents: 'none' }}
-                                />
-                            )
-                        }}
-                        checked={theme === 'dark'}
-                        onChange={checked =>
-                            window.__setPreferredTheme(
-                                checked ? 'dark' : 'light'
-                            )
-                        }
-                    />
+                    {theme && (
+                        <Toggle
+                            icons={{
+                                checked: (
+                                    <img
+                                        src={moon}
+                                        width="16"
+                                        height="16"
+                                        alt="moon-icon"
+                                        style={{ pointerEvents: 'none' }}
+                                    />
+                                ),
+                                unchecked: (
+                                    <img
+                                        src={sun}
+                                        width="16"
+                                        height="16"
+                                        alt="sun-icon"
+                                        style={{ pointerEvents: 'none' }}
+                                    />
+                                )
+                            }}
+                            checked={theme === 'dark'}
+                            onChange={checked =>
+                                window.__setPreferredTheme(checked ? 'dark' : 'light')
+                            }
+                        />
+                    )}
                 </header>
                 <div
                     style={{
@@ -115,7 +115,7 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                     {children}
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

@@ -6,13 +6,13 @@
 
 import '../styles/Toggle.css'
 
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useRef } from 'react'
 import _ from 'lodash'
 
 // Copyright 2015-present Drifty Co.
 // http://drifty.com/
 // from: https://github.com/driftyco/ionic/blob/master/src/util/dom.ts
-const pointerCoord = (event: any): { x: number, y: number } => {
+const pointerCoord = (event: any): { x: number; y: number } => {
     // get coordinates for either a mouse click
     // or a touch depending on the given event
     if (event) {
@@ -56,16 +56,16 @@ const Toggle: React.FC<Props> = ({
         (disabled ? ' react-toggle--disabled' : '') +
         (className ? ' ' + className : '')
 
-    const handleClick: React.MouseEventHandler & React.KeyboardEventHandler = (event) => {
+    const handleClick: React.MouseEventHandler & React.KeyboardEventHandler = event => {
         onChange && onChange(!checked)
     }
 
-    const handleTouchStart: React.TouchEventHandler = (event) => {
+    const handleTouchStart: React.TouchEventHandler = event => {
         startX.current = pointerCoord(event).x
         touchStarted.current = true
     }
 
-    const handleTouchMove: React.TouchEventHandler = (event) => {
+    const handleTouchMove: React.TouchEventHandler = event => {
         if (!touchStarted) return
         touchMoved.current = true
 
@@ -81,7 +81,7 @@ const Toggle: React.FC<Props> = ({
         }
     }
 
-    const handleTouchEnd: React.TouchEventHandler = (event) => {
+    const handleTouchEnd: React.TouchEventHandler = event => {
         if (!touchMoved) return
         event.preventDefault()
 
@@ -120,12 +120,8 @@ const Toggle: React.FC<Props> = ({
             onTouchCancel={handleTouchCancel}
         >
             <div className="react-toggle-track">
-                <div className="react-toggle-track-check">
-                    {getIcon('checked')}
-                </div>
-                <div className="react-toggle-track-x">
-                    {getIcon('unchecked')}
-                </div>
+                <div className="react-toggle-track-check">{getIcon('checked')}</div>
+                <div className="react-toggle-track-x">{getIcon('unchecked')}</div>
             </div>
             <div className="react-toggle-thumb" />
         </div>
