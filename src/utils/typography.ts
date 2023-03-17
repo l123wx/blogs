@@ -11,17 +11,29 @@ Wordpress2016.overrideThemeStyles = () => ({
         margin: 0,
         textTransform: 'unset'
     },
+    'a.anchor.before': {
+        top: '2rem'
+    },
     'h1': {
         paddingTop: '3.5rem',
-        paddingBottom: '1.75rem',
+        paddingBottom: '1.75rem'
+    },
+    'h1 a.anchor.before': {
+        top: '3.5rem'
     },
     'h2': {
         paddingTop: '3rem',
-        paddingBottom: '1.75rem',
+        paddingBottom: '1.75rem'
+    },
+    'h2 a.anchor.before': {
+        top: '3rem'
     },
     'h3': {
         paddingTop: '2.5rem',
-        paddingBottom: '1.75rem',
+        paddingBottom: '1.75rem'
+    },
+    'h3 a.anchor.before': {
+        top: '2.5rem'
     },
     'h4, h5, h6': {
         paddingTop: '2rem',
@@ -36,9 +48,6 @@ Wordpress2016.overrideThemeStyles = () => ({
     // These two are for gatsby-remark-autolink-headers:
     'a.anchor': {
         boxShadow: 'none',
-    },
-    'a.anchor.before': {
-        top: '3.5rem'
     },
     'a.anchor svg[aria-hidden="true"]': {
         stroke: 'var(--textLink)',
