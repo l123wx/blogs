@@ -49,8 +49,8 @@ javascript: document.querySelectorAll('[data-label=html]').forEach(item => {
 
 ```js
 javascript: document.querySelectorAll('[data-label=javascript]').forEach(item => {
-    item.outerHTML = '';
     eval(item.innerText.replace(/<.*?>/g, ''));
+    item.outerHTML = '';
 })
 ```
 
@@ -59,5 +59,7 @@ javascript: document.querySelectorAll('[data-label=javascript]').forEach(item =>
 需要注意的是，js 代码中如果出现了 html 标签，需要转译一下，不然会被清除。
 
 ## 最后
+
+如果需要修改链接动作中匹配&运行的代码，注意要加上结尾的分号。因为代码会被处理成一行，如果不加分号会出错。
 
 附上一个 demo 文件：[code.rp](./assets/code.rp)
