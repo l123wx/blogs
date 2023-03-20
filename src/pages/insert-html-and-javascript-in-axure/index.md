@@ -13,7 +13,7 @@ spoiler: '让你的axure原型中可以实现更多骚操作'
 ### 原理
 
 -   Axure 添加交互中打开链接的动作
--   `a` 标签的`href` 属性，通过 `javascript:;` 写法执行 js 代码
+-   `a` 标签的 `href` 属性，通过 `javascript:;` 写法执行 js 代码
 
 ### 操作
 
@@ -49,7 +49,7 @@ javascript: document.querySelectorAll('[data-label=html]').forEach(item => {
 
 ```js
 javascript: document.querySelectorAll('[data-label=javascript]').forEach(item => {
-    eval(item.innerText.replace(/<.*?>/g, ''));
+    eval(item.innerText);
     item.outerHTML = '';
 })
 ```
@@ -60,6 +60,6 @@ javascript: document.querySelectorAll('[data-label=javascript]').forEach(item =>
 
 ## 最后
 
-如果需要修改链接动作中匹配&运行的代码，注意要加上结尾的分号。因为代码会被处理成一行，如果不加分号会出错。
+所有js代码，能加上结尾分号的地方都要加上！！！不然代码被成一行之后，eval运行代码就会报错。
 
 附上一个 demo 文件：[code.rp](./assets/code.rp)
