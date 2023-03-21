@@ -38,7 +38,7 @@ body.dark {
 
 .gatsby-resp-image-wrapper {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  max-width: unset;
+  max-width: unset !important;
 }
 
 /**
