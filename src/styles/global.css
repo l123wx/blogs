@@ -36,11 +36,6 @@ body.dark {
   }
 }
 
-.gatsby-resp-image-wrapper {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  max-width: unset !important;
-}
-
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
@@ -185,6 +180,8 @@ pre[data-line] {
 .gatsby-highlight {
   margin-bottom: 1.75rem;
   border-radius: 10px;
+  margin-right: 0;
+  margin-left: 0;
   background: #011627;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
@@ -216,6 +213,11 @@ pre[data-line] {
 .gatsby-highlight pre[class*='language-'] {
   float: left;
   min-width: 100%;
+}
+
+.gatsby-resp-image-wrapper {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  max-width: unset !important;
 }
 
 .task-list-item {
