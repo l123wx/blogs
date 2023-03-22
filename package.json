@@ -34,7 +34,9 @@
     "react-helmet": "^6.1.0",
     "react-typography": "^0.16.23",
     "typography": "^0.16.21",
-    "typography-theme-wordpress-2016": "^0.16.19"
+    "typography-theme-wordpress-2016": "^0.16.19",
+    "shiki": "^0.14.1",
+    "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

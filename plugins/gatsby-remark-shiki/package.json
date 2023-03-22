@@ -1,0 +1,24 @@
+{
+  "name": "gatsby-remark-shiki",
+  "description": "Adds vscode style syntax highlighting to code blocks in markdown files using shiki.",
+  "version": "1.0.0",
+  "author": "Elvis liao",
+  "bugs": {
+    "url": ""
+  },
+  "dependencies": {
+    "shiki": "^0.14.1",
+    "unist-util-visit": "^2.0.3"
+  },
+  "homepage": "",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "vscode",
+    "shiki",
+    "remark"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {}
+}

@@ -35,12 +35,7 @@ const config: GatsbyConfig = {
                         }
                     },
                     'gatsby-remark-autolink-headers',
-                    {
-                        resolve: 'gatsby-remark-prismjs',
-                        options: {
-                            inlineCodeMarker: '÷'
-                        }
-                    },
+                    'gatsby-remark-shiki',
                     'gatsby-remark-copy-linked-files',
                     'gatsby-remark-smartypants',
                     {
@@ -71,13 +66,13 @@ const config: GatsbyConfig = {
         {
             resolve: 'gatsby-plugin-typography',
             options: {
-                pathToConfigModule: 'src/utils/typography',
+                pathToConfigModule: 'src/utils/typography'
             }
         },
         `gatsby-plugin-catch-links`
     ],
     pathPrefix: '/',
-    graphqlTypegen: true,
+    graphqlTypegen: true
 }
 
 module.exports = config
