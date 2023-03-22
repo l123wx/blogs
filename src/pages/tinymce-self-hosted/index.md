@@ -1,23 +1,23 @@
 ---
-title: 'Vue3使用离线版的TinyMCE'
+title: 'Vue3 使用离线版的 TinyMCE'
 date: '2023-03-21'
 ---
 
 ## 前言
 
-出于以下原因，我们可能需要使用离线版的TinyMCE：
+出于以下原因，我们可能需要使用离线版的 TinyMCE：
 
  - 内网部署，无法访问外部资源
  - 希望通过直接访问本地资源优化加载速度
- - 不想使用api-key
+ - 不想使用 api-key
 
-本文中以Vue3项目为例，使用离线版本的TinyMCE
+本文中以 Vue3 项目为例，使用离线版本的 TinyMCE
 
 ## 操作步骤
 
 ### 资源准备
 
-在TinyMCE [官网下载](https://www.tiny.cloud/get-tiny/self-hosted/) 代码包，如果没有查看源码的需求，可以直接下载 Prod 版本
+在 TinyMCE [官网下载](https://www.tiny.cloud/get-tiny/self-hosted/) 代码包，如果没有查看源码的需求，可以直接下载 Prod 版本
 
 ![image-20230321171526780](./assets/image-20230321171526780.png)
 
@@ -44,7 +44,7 @@ date: '2023-03-21'
         language_url: '/js/tinymce/langs/zh-Hans.js',
         // 静态资源文件路径
         base_url: '/js/tinymce',
-        // 我们引入的是tinymce.min.js，需要使用 suffix 添加 .min 后缀
+        // 我们引入的是 tinymce.min.js，需要使用 suffix 添加 .min 后缀
         suffix: '.min',
         init_instance_callback: () => {
             // 在初始化完成后触发
@@ -70,11 +70,11 @@ date: '2023-03-21'
 
 ```vue
 <template>
-	<Editor />
+    <Editor />
 </template>
 
 <script setup lang="ts">
-	import Editor from 'examplePath/Editor.vue'
+    import Editor from 'examplePath/Editor.vue'
 </script>
 ```
 
@@ -86,7 +86,7 @@ date: '2023-03-21'
 
 如果使用 `TypeScript` 的话，还需要对类型进行配置
 
-首先在 `tsconfig.json` 文件中加入TinyMCE的类型文件：
+首先在 `tsconfig.json` 文件中加入 TinyMCE 的类型文件：
 
 ```json
 {
@@ -99,7 +99,7 @@ date: '2023-03-21'
 在 `/src` 目录下添加 `window.d.ts` 文件，添加如下代码：
 
 ```typescript
-import { TinyMCE } from "public/js/tinymce/tinymce"
+import { TinyMCE } from 'public/js/tinymce/tinymce'
 
 declare global {
     interface Window {

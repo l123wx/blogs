@@ -1,5 +1,5 @@
 ---
-title: 'vue-router使用history模式出现404的问题'
+title: 'vue-router 使用 history 模式出现404的问题'
 date: '2023-03-13'
 spoiler: 'Nginx 的 try_files 配置'
 ---
