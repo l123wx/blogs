@@ -5,7 +5,12 @@ import Wordpress2016 from 'typography-theme-wordpress-2016'
 
 Wordpress2016.overrideThemeStyles = () => ({
     a: {
+        boxShadow: 'unset',
         color: 'var(--textLink)',
+    },
+    'a:hover': {
+        boxShadow: '0 1px 0 0 currentColor',
+        color: 'var(--textLink)'
     },
     'h1, h2, h3, h4, h5, h6': {
         margin: 0,
