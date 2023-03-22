@@ -24,6 +24,7 @@
     "gatsby-remark-prismjs": "^7.5.0",
     "gatsby-remark-responsive-iframe": "^6.5.0",
     "gatsby-remark-smartypants": "^6.5.0",
+    "gatsby-remark-vscode-shiki": "^1.0.0",
     "gatsby-source-filesystem": "^5.5.0",
     "gatsby-transformer-remark": "^6.5.0",
     "gatsby-transformer-sharp": "^5.5.0",
@@ -33,9 +34,9 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-typography": "^0.16.23",
+    "shiki": "^0.14.1",
     "typography": "^0.16.21",
     "typography-theme-wordpress-2016": "^0.16.19",
-    "shiki": "^0.14.1",
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {

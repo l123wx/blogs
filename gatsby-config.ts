@@ -35,7 +35,7 @@ const config: GatsbyConfig = {
                         }
                     },
                     'gatsby-remark-autolink-headers',
-                    'gatsby-remark-shiki',
+                    'gatsby-remark-vscode-shiki',
                     'gatsby-remark-copy-linked-files',
                     'gatsby-remark-smartypants',
                     {
