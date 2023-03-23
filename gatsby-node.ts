@@ -15,7 +15,10 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
 
     createPage({
         path: '/',
-        component: path.resolve('./src/templates/blog-index.tsx')
+        component: path.resolve('./src/templates/blog-index.tsx'),
+        context: {
+            isDevEnv: process.env.NODE_ENV === 'development'
+        }
     })
 
     const query = `
@@ -107,10 +110,13 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, actions }) => {
 
 export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = ({ actions }) => {
     const { createTypes } = actions
-    createTypes(`
-        type MarkdownRemarkFields {
+    createTypes([
+        `type MarkdownRemarkFields {
             maybeAbsoluteLinks: [String!]!
             slug: String!
-        }
-    `)
+        }`,
+        `type MarkdownRemarkFrontmatter {
+            isPending: Boolean
+        }`
+    ])
 }

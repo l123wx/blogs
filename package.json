@@ -1,9 +1,9 @@
 {
   "name": "elvis-blogs",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Personal blog by Elvis. Hello, I'm Elvis, a front-end engineer, this is my personal blogs",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Elvis Liao <https://github.com/l123wx>",
   "dependencies": {
     "@giscus/react": "^2.2.8",
     "@vercel/analytics": "^0.1.9",
@@ -49,9 +49,11 @@
     "typescript": "^4.9.5"
   },
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "blog",
+    "elvis"
   ],
-  "license": "0BSD",
+  "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
@@ -63,9 +65,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/l123wx/blogs"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/l123wx/blogs/issues"
   }
 }

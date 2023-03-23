@@ -1,7 +1,8 @@
 ---
-title: '地图开发（未完结）'
+title: '地图开发'
 date: '2023-02-24'
 spoiler: '从地图引擎开始，手撸地图开发需求'
+isPending: true
 ---
 
 ## 前言

@@ -34,12 +34,14 @@ const BlogIndexTemplate: React.FC<PageProps<QueryData>> = ({ data, location }) =
             <main>
                 {posts &&
                     posts.map(({ node }) => {
+                        const isPending = Boolean(node.frontmatter?.isPending)
+                        const statusText = isPending ? '（待完成）' : ''
                         const title = node.frontmatter?.title || node.fields?.slug || ''
                         return (
                             <ArticleItem
                                 key={node.id}
                                 slug={node.fields?.slug || ''}
-                                title={title}
+                                title={title + statusText}
                                 spoiler={node.frontmatter?.spoiler || ''}
                                 date={node.frontmatter?.date || ''}
                                 timeToRead={node.timeToRead || 0}
@@ -62,7 +64,9 @@ type QueryData = {
 }
 
 export const pageQuery = graphql`
-    query {
+    query(
+        $isDevEnv: Boolean!
+    ) {
         site {
             siteMetadata {
                 title
@@ -71,7 +75,10 @@ export const pageQuery = graphql`
         }
         allMarkdownRemark(
             sort: { frontmatter: { date: DESC } }
-            filter: { fileAbsolutePath: { regex: "/(/index.md)$/" } }
+            filter: {
+                fileAbsolutePath: { regex: "/(/index.md)$/" },
+                frontmatter: { isPending: { in: [null, false, $isDevEnv] } }
+            }
         ) {
             edges {
                 node {
@@ -84,6 +91,7 @@ export const pageQuery = graphql`
                         date(formatString: "MMMM DD, YYYY")
                         title
                         spoiler
+                        isPending
                     }
                 }
             }
