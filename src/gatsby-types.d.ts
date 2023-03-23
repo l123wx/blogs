@@ -2638,19 +2638,23 @@ type SiteSiteMetadataFilterInput = {
 };
 
 type SiteSiteMetadataSocial = {
-  readonly github: Maybe<Scalars['String']>;
+  readonly ChatGPT: Maybe<Scalars['String']>;
+  readonly GitHub: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataSocialFieldSelector = {
-  readonly github: InputMaybe<FieldSelectorEnum>;
+  readonly ChatGPT: InputMaybe<FieldSelectorEnum>;
+  readonly GitHub: InputMaybe<FieldSelectorEnum>;
 };
 
 type SiteSiteMetadataSocialFilterInput = {
-  readonly github: InputMaybe<StringQueryOperatorInput>;
+  readonly ChatGPT: InputMaybe<StringQueryOperatorInput>;
+  readonly GitHub: InputMaybe<StringQueryOperatorInput>;
 };
 
 type SiteSiteMetadataSocialSortInput = {
-  readonly github: InputMaybe<SortOrderEnum>;
+  readonly ChatGPT: InputMaybe<SortOrderEnum>;
+  readonly GitHub: InputMaybe<SortOrderEnum>;
 };
 
 type SiteSiteMetadataSortInput = {

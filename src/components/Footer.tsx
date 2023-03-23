@@ -8,7 +8,8 @@ const query = graphql`
         site {
             siteMetadata {
                 social {
-                    github
+                    GitHub
+                    ChatGPT
                 }
             }
         }
