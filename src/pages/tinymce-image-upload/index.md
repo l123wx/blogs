@@ -11,8 +11,9 @@ date: '2023-03-22'
 
 ### 配置
 
-```javascript
+在 TinyMCE 的初始化参数中配置：
 
+```javascript
 const initOptions = {
     // 开启高级设置面板
     image_advtab: true,
@@ -36,6 +37,8 @@ const initOptions = {
         return resultPath
     }
 }
+
+tinymce.init(initOptions)
 ```
 
 注意：需要同时开启 `image_uploadtab` 和 填写 `image_upload_url` 才会展示图片上传面板，所以就算使用自定义上传方法，也要填写 `image_upload_url` 字段
