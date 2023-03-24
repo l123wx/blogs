@@ -7,8 +7,7 @@ const config: GatsbyConfig = {
         description: "Personal blog by Elvis. Hello, I'm Elvis, a front-end engineer, this is my personal blogs",
         siteUrl: 'https://l123wx.buzz',
         social: {
-            GitHub: 'https://github.com/l123wx',
-            ChatGPT: 'http://chatgpt.l123wx.buzz/'
+            GitHub: 'https://github.com/l123wx'
         }
     },
     plugins: [

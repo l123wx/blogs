@@ -1,0 +1,62 @@
+.chat-gpt-container {
+    position: fixed;
+    width: 0;
+    height: 0;
+    bottom: 100px;
+    left: 200px;
+    z-index: 10;
+}
+
+@media (max-width: 1180px) {
+    .chat-gpt-container {
+        display: none;
+    }
+}
+
+.chat-gpt-container > .icon {
+    width: 100px;
+    max-width: unset;
+    height: 100px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.1s;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.chat-gpt-container > .icon:active {
+    transform: translate(-50%, -50%) scale(0.9) !important;
+}
+
+.chat-gpt-container > .icon.checked {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.chat-gpt-container > .iframe-container {
+    width: calc(100vw - 300px);
+    height: calc(100vh - 100px);
+    position: absolute;
+    left: -60px;
+    bottom: -50px;
+    margin-bottom: 0;
+    transition: transform 0.5s, opacity 0.3s;
+    transition-timing-function: cubic-bezier(0.39, 0.58, 0.57, 1);
+    transform: translate(-50%, 50%) scale(0);
+    opacity: 0;
+    background-color: #212129;
+    border-radius: 10px;
+}
+
+.chat-gpt-container > .iframe-container > iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+.chat-gpt-container.showing > .iframe-container {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+}

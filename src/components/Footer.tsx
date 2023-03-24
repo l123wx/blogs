@@ -9,7 +9,6 @@ const query = graphql`
             siteMetadata {
                 social {
                     GitHub
-                    ChatGPT
                 }
             }
         }
