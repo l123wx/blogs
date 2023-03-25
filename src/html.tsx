@@ -1,9 +1,8 @@
 import React from 'react'
-import { Analytics } from '@vercel/analytics/react'
 
 type Props = {
-    htmlAttributes: JSX.IntrinsicElements["html"]
-    bodyAttributes: JSX.IntrinsicElements["body"]
+    htmlAttributes: JSX.IntrinsicElements['html']
+    bodyAttributes: JSX.IntrinsicElements['body']
     headComponents: React.ReactNode[]
     preBodyComponents: React.ReactNode[]
     body: string
@@ -19,7 +18,7 @@ const HTML: React.FC<Props> = ({
     body
 }) => {
     return (
-        <html {...htmlAttributes} >
+        <html {...htmlAttributes}>
             <head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -27,14 +26,25 @@ const HTML: React.FC<Props> = ({
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            var _hmt = _hmt || [];
+                            (function() {
+                                var hm = document.createElement("script");
+                                hm.src = "https://hm.baidu.com/hm.js?9ebf78efabf884940a47aeff6ae82f76";
+                                var s = document.getElementsByTagName("script")[0]; 
+                                s.parentNode.insertBefore(hm, s);
+                            })();
+                        `
+                    }}
+                />
                 {headComponents}
             </head>
-            <body {...bodyAttributes} className="light" >
-                <Analytics />
+            <body {...bodyAttributes} className="light">
                 <script
-                    dangerouslySetInnerHTML={
-                        {
-                            __html: `
+                    dangerouslySetInnerHTML={{
+                        __html: `
                                 (function() {
                                     window.__onThemeChange = function() {}
                                     function setTheme(newTheme) {
@@ -64,16 +74,10 @@ const HTML: React.FC<Props> = ({
                                     setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'))
                                 })()
                             `
-                        }
-                    }
+                    }}
                 />
                 {preBodyComponents}
-                <div
-                    key={`body`}
-                    id="___gatsby"
-                    dangerouslySetInnerHTML={{ __html: body }
-                    }
-                />
+                <div key={`body`} id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />
                 {postBodyComponents}
             </body>
         </html>
