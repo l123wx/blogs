@@ -22,7 +22,6 @@ const ArticleItem: React.FC<Props> = ({ slug, title, spoiler, date, timeToRead }
             <header>
                 <h3
                     style={{
-                        fontFamily: 'Montserrat, sans-serif',
                         fontSize: rhythm(1),
                         marginBottom: rhythm(1 / 4),
                         paddingTop: 0,

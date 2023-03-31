@@ -89,7 +89,6 @@ const BlogPostTemplate: React.FC<PageProps<QueryData, BlogPostProps>> = props =>
                 >
                     <h3
                         style={{
-                            fontFamily: 'Montserrat, sans-serif',
                             marginTop: rhythm(0.25)
                         }}
                     >
