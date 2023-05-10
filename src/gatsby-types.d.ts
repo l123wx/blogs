@@ -1378,7 +1378,7 @@ type MarkdownRemarkFieldSelector = {
 
 type MarkdownRemarkFields = {
   readonly maybeAbsoluteLinks: ReadonlyArray<Scalars['String']>;
-  readonly slug: Scalars['String'];
+  readonly slug: Maybe<Scalars['String']>;
 };
 
 type MarkdownRemarkFieldsFieldSelector = {
@@ -2712,7 +2712,7 @@ type BlogPostBySlugQueryVariables = Exact<{
 }>;
 
 
-type BlogPostBySlugQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null, readonly author: string | null } | null } | null, readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly timeToRead: number | null, readonly headings: ReadonlyArray<{ readonly id: string | null, readonly value: string | null, readonly depth: number | null } | null> | null, readonly frontmatter: { readonly title: string | null, readonly date: string | null, readonly spoiler: string | null } | null, readonly fields: { readonly slug: string } | null } | null };
+type BlogPostBySlugQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null, readonly author: string | null } | null } | null, readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly timeToRead: number | null, readonly headings: ReadonlyArray<{ readonly id: string | null, readonly value: string | null, readonly depth: number | null } | null> | null, readonly frontmatter: { readonly title: string | null, readonly date: string | null, readonly spoiler: string | null } | null, readonly fields: { readonly slug: string | null } | null } | null };
 
 type GatsbyImageSharpFixedFragment = { readonly base64: string | null, readonly width: number, readonly height: number, readonly src: string, readonly srcSet: string };
 

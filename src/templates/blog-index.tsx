@@ -68,7 +68,7 @@ type QueryData = {
 }
 
 export const pageQuery = graphql`
-    query ($isDevEnv: Boolean!) {
+    {
         site {
             siteMetadata {
                 title
@@ -79,7 +79,7 @@ export const pageQuery = graphql`
             sort: { frontmatter: { date: DESC } }
             filter: {
                 fileAbsolutePath: { regex: "/(/index.md)$/" }
-                frontmatter: { isPending: { in: [null, false, $isDevEnv] } }
+                fields: { slug: { ne: null } }
             }
         ) {
             edges {
