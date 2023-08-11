@@ -113,7 +113,8 @@ pre[data-line] {
 
 .gatsby-highlight-code-line {
   background-color: hsla(207, 95%, 15%, 1);
-  display: block;
+  display: inline-block;
+  width: calc(100% + 2.625rem);
   margin-right: -1.3125rem;
   margin-left: -1.3125rem;
   padding-right: 1em;
