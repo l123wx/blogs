@@ -102,4 +102,4 @@ jump-none
 
 这里我借用一下网名为“果冻”的大佬的一篇文章中的一个张GIF，以便展示一下各个取值的不同表现：
 
-<img src="assets/c353db0942334356a208f1081da20aaftplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="easingFunc.gif" />
+<img src="assets/atyo6-z987c.gif" alt="easingFunc.gif" />
