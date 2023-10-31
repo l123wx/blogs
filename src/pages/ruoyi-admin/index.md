@@ -9,9 +9,9 @@ spoiler: '使用 RuoYi 框架部署一套前后端分离的后台项目'
 ### 项目地址
 
 - 若依官网：http://120.79.202.7/
-- RuoYi-Vue：https://gitee.com/y_project/RuoYi（后端 Java Spring）
+- RuoYi-Vue：https://gitee.com/y_project/RuoYi （后端 Java Spring）
   - 文档：http://doc.ruoyi.vip/ruoyi-vue/
-- RuoYi-Vue3：https://github.com/yangzongzhuan/RuoYi-Vue3（前端 Vue3）
+- RuoYi-Vue3：https://github.com/yangzongzhuan/RuoYi-Vue3 （前端 Vue3）
 
 ### 开发环境准备
 
