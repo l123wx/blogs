@@ -19,30 +19,19 @@ HTML 中，外部的图片链接粘贴进去展示不出来，主要是两个原
 
 ## Tinymce 代码
 
-在 Tinymce 的 initOptions 的 `paste_postprocess` 回调中处理：
-
-[`paste_postprocess`](https://www.tiny.cloud/docs/tinymce/6/copy-and-paste/#paste_postprocess) 回调会在粘贴内容到 Tinymce，并且已经将粘贴的内容转换成 DOM 后触发，可以通过 `args.node` 获取到 DOM
+在 Tinymce 的 initOptions 中添加：
 
 ```js
 ...,
-paste_postprocess: function (editor, args) {
-    args.node.querySelectorAll('img').forEach(element => {
-        element.removeAttribute('crossorigin')
-        element.setAttribute('referrerPolicy', 'no-referrer')
-    })
+// 允许 img 标签的所有属性，不添加这行代码的话 Tinymce 会自动删除我们要添加的 referrerPolicy 属性
+valid_elements: 'img[*]',
+// 这个回调会在粘贴内容到 Tinymce 时触发，可以在这个内容修改粘贴的内容。
+// 我们在这里去除导致跨域的 crossorigin 属性，添加 referrerPolicy="no-referrer"
+paste_preprocess: function (_, args) {
+    args.content = args.content
+        .replaceAll('crossorigin', '')
+        .replaceAll('<img', '<img referrerPolicy="no-referrer"')
 },
 ...
-```
-
-这段代码只能让 Tinymce 在编辑的时候可以看到图片，当使用 getContent 方法获取 html 内容的时候，referrerPolicy 属性还是会被移除，所以还要再 getContent 获取内容后对 img 标签进行处理：
-
-```js{5}
-const getContent = () => {
-    return (
-        this.tinymceEditor?.getContent({
-            format: 'html'
-        }).replaceAll('<img', '<img referrerPolicy="no-referrer"') || ''
-    )
-}
 ```
 
