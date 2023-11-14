@@ -1,6 +1,7 @@
 ---
 title: 'Vue3 使用离线版的 TinyMCE'
 date: '2023-03-21'
+spoiler: 'TinyMCE 的使用，而且离线版本！'
 ---
 
 ## 前言
@@ -27,6 +28,8 @@ date: '2023-03-21'
 
 ### 编写代码
 
+#### Vue3 (暂未实际运行，只提供编写思路)
+
 新建一个 Editor 组件
 
 ```vue
@@ -36,27 +39,76 @@ date: '2023-03-21'
 </template>
 
 <script setup lang="ts">
+    import { ref, watch } from 'vue'
     import { RawEditorOptions, Editor } from 'public/js/tinymce/tinymce'
+    
+    const BASE_URL = '/js/tinymce'
+    
+    const props = defineProps<{
+        value: string
+    }>()
+    
+    const emits = defineEmits<{
+       (event: 'update:value', value: string) 
+    }>()
+    
+    let tinymceEditor: Editor
+    const currentValue = ref('')
 
     const initOptions: RawEditorOptions = {
         selector: 'textarea#editor',
         language: 'zh-Hans',
-        language_url: '/js/tinymce/langs/zh-Hans.js',
+        language_url: BASE_URL + '/langs/zh-Hans.js',
         // 静态资源文件路径
-        base_url: '/js/tinymce',
+        base_url: BASE_URL,
         // 我们引入的是 tinymce.min.js，需要使用 suffix 添加 .min 后缀
         suffix: '.min',
-        init_instance_callback: () => {
-            // 在初始化完成后触发
+        // 关闭 upgrade 按钮
+        promotion: false,
+        init_instance_callback: tinymceEditor => {
+            // Tinymce 初始化完成时将 props.value 赋值给富文本
+            tinymceEditor.setContent(currentValue.value || '', {
+                format: 'html'
+            })
         },
+        setup: editor => {
+            // 监听富文本输入，更新 value
+            editor.on('input', () => {
+                currentValue.value = that.getContent()
+                that.$emit('update:value', currentValue.value)
+            })
+            editor.on('ExecCommand', () => {
+                currentValue.value = that.getContent()
+                that.$emit('update:value', currentValue.value)
+            })
+        }
         ...
     }
-
-    let tinymceEditor: Editor
+    
+    const getContent = () => {
+        return (
+            tinymceEditor?.getContent({
+                format: 'html'
+            }) || ''
+        )
+    }
+    
+    watch(() => props.value, newValue => {
+        if (newValue !== currentValue.value) {
+            currentValue.value = newValue === null ? '' : newValue
+            if (tinymceEditor) {
+                tinymceEditor.setContent(currentValue.value, {
+                    format: 'html'
+                })
+            }
+        }
+    }, {
+        immediate: true
+    })
 
     onMounted(() => {
         const script = document.createElement('script')
-        script.src = '/js/tinymce/tinymce.min.js'
+        script.src = BASE_URL + '/tinymce.min.js'
         script.onload = async () => {
             // 初始化 TinyMCE 并保存返回的 Editor 对象
             ;[tinymceEditor] = await window.tinymce.init(initOptions)
@@ -70,12 +122,127 @@ date: '2023-03-21'
 
 ```vue
 <template>
-    <Editor />
+    <Editor v-model:value="value" />
 </template>
 
 <script setup lang="ts">
+    import { ref } from 'vue'
     import Editor from 'examplePath/Editor.vue'
+    
+    const value = ref('')
 </script>
+```
+
+#### Vue 2
+
+新建一个 Editor 组件
+
+```vue
+<template>
+    <div class="container">
+        <textarea id="editor"></textarea>
+    </div>
+</template>
+
+<script>
+    const BASE_URL = '/js/tinymce'
+    
+    export default {
+        name: 'Editor',
+        props: {
+            /* 编辑器的内容 */
+            value: {
+                type: String,
+                default: ''
+            },
+            /* 只读 */
+            readOnly: {
+                type: Boolean,
+                default: true
+            }
+        },
+        data() {
+            const that = this
+
+            return {
+                tinymceEditor: null,
+                initOptions: {
+                    selector: 'textarea#editor',
+                    language_url: BASE_URL + '/langs/zh-Hans.js',
+                    language: 'zh-Hans',
+                    base_url: BASE_URL,
+                    suffix: '.min',
+                    // 关闭 upgrade 按钮
+        			promotion: false,
+                    readonly: this.readOnly,
+                    init_instance_callback: tinymceEditor => {
+                        tinymceEditor.setContent(that.value || '', {
+                            format: 'html'
+                        })
+                    },
+                    setup: editor => {
+                        editor.on('input', () => {
+                            this.currentValue = that.getContent()
+                            that.$emit('input', this.currentValue)
+                        })
+                        editor.on('ExecCommand', () => {
+                            this.currentValue = that.getContent()
+                            that.$emit('input', this.currentValue)
+                        })
+                    },
+                    ...
+                }
+            }
+        },
+        watch: {
+            value: {
+                handler(val) {
+                    if (val !== this.currentValue) {
+                        this.currentValue = val === null ? '' : val
+                        if (this.tinymceEditor) {
+                            this.tinymceEditor.setContent(this.currentValue, {
+                                format: 'html'
+                            })
+                        }
+                    }
+                }
+            }
+        },
+        mounted() {
+            this.init()
+        },
+        beforeDestroy() {
+            this.tinymceEditor = null
+        },
+        methods: {
+            init() {
+                const script = document.createElement('script')
+                script.src = BASE_URL + '/tinymce.min.js'
+                script.onload = async () => {
+                    // 初始化 TinyMCE 并保存返回的 Editor 对象
+                    ;[this.tinymceEditor] = await window.tinymce.init(
+                        this.initOptions
+                    )
+                }
+                document.body.appendChild(script)
+            },
+            getContent() {
+                return (
+                    this.tinymceEditor?.getContent({
+                        format: 'html'
+                    }) || ''
+                )
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    // 修复菜单被弹窗遮挡的问题
+    .tox-tinymce-aux.tox {
+        z-index: 1000000;
+    }
+</style>
 ```
 
 运行项目，可以看到所有资源都是请求的本地资源
