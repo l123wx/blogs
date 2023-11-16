@@ -166,6 +166,7 @@ spoiler: 'TinyMCE 的使用，而且离线版本！'
 
             return {
                 tinymceEditor: null,
+                isEditorInitialized: false,
                 initOptions: {
                     selector: 'textarea#editor',
                     language_url: BASE_URL + '/langs/zh-Hans.js',
@@ -179,6 +180,7 @@ spoiler: 'TinyMCE 的使用，而且离线版本！'
                         tinymceEditor.setContent(that.value || '', {
                             format: 'html'
                         })
+                        that.isEditorInitialized = true
                     },
                     setup: editor => {
                         editor.on('input', () => {
@@ -186,6 +188,9 @@ spoiler: 'TinyMCE 的使用，而且离线版本！'
                             that.$emit('input', this.currentValue)
                         })
                         editor.on('ExecCommand', () => {
+                            // 富文本初始化时会触发这个回调，而那个时候我们还没将内容初始化好，这里是为了避免 $emit 空内容出去导致值丢失
+                            if (!that.isEditorInitialized) return
+
                             this.currentValue = that.getContent()
                             that.$emit('input', this.currentValue)
                         })

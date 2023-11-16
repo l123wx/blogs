@@ -143,11 +143,15 @@ const initOptions = {
             progressCallback((e.loaded / e.total) * 100 + '%')
         })
             .then(res => {
-            successCallback(res.fileName)
-        })
+                successCallback(res.fileName)
+
+                // 附件上传后不会触发富文本 input 的回调，所以需要手动更新一下富文本内容
+                // this.currentValue = that.getContent()
+                // that.$emit('input', this.currentValue)
+            })
             .catch(err => {
-            failureCallback(`上传失败:${err.message}`)
-        })
+                failureCallback(`上传失败:${err.message}`)
+            })
     },
     ...
 }
