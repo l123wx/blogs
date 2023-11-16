@@ -24,7 +24,8 @@ HTML 中，外部的图片链接粘贴进去展示不出来，主要是两个原
 ```js
 ...,
 // 允许 img 标签的所有属性，不添加这行代码的话 Tinymce 会自动删除我们要添加的 referrerPolicy 属性
-valid_elements: 'img[*]',
+// 如果已经设置过其他属性，使用逗号隔开，eg: '*[style], img[*]'
+extended_valid_elements: 'img[*]',
 // 这个回调会在粘贴内容到 Tinymce 时触发，可以在这个内容修改粘贴的内容。
 // 我们在这里去除导致跨域的 crossorigin 属性，添加 referrerPolicy="no-referrer"
 paste_preprocess: function (_, args) {

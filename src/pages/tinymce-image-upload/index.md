@@ -163,7 +163,7 @@ const initOptions = {
     // 粘贴时是否去除 style
     paste_remove_styles_if_webkit: false,
     // 允许所有标签的 style 属性
-    valid_elements: '*[style]',
+    extended_valid_elements: '*[style]',
     ...
 }
 
