@@ -70,11 +70,12 @@ const renderHtmlAsync = async wordFile => {
         ignoreWidth: true
     })
     
-    // 去除 word 中的边距
-    importWordUploadContainerDom.querySelector('.docx').style.padding = 0
-    const wordHtmlContent = importWordUploadContainerDom.innerHTML
+    // 获取 style 标签
+    const wordStyleContent = Array.from(importWordUploadContainerDom.querySelectorAll('style')).map(dom => dom.outerHTML).join('')
+    // 去除 word 的纸页容器
+    const wordHtmlContent = Array.from(importWordUploadContainerDom.querySelectorAll('section.docx')).map(dom => dom.innerHTML).join('')
     
-    return wordHtmlContent
+    return wordStyleContent + wordHtmlContent
 }
 
 const handleWordFileUpload = (e) => {
@@ -91,6 +92,8 @@ const handleWordFileUpload = (e) => {
 
 ## 遇到的坑
 
+### 文件类型丢失
+
 使用 TinyMCE 的 `setContent` 方法时，如果 html 里有图片，会触发 TinyMCE 的 `images_upload_handler` 方法。我们可以在这里将word 原有的图片上传到服务器上。但是实际操作时会发现一个问题：docx-preview.js 在渲染 html 的时候，将 word 中的文件替换成了临时的 blob 链接，而且这个 blob 的 type 变成了 `text/plain`，这就意味着原文件的类型丢失了。如果直接上传这个 blob 文件，下载这个文件时只能得到 `.blob` 后缀的文件
 
 ```js
@@ -103,17 +106,17 @@ images_upload_handler: blobInfo => {
 
 再次冲浪后得知，就算 blob 中的 type 丢失了，还有方法可以获取文件的真实类型 —— 魔数
 
-### 魔数
+#### 魔数
 
 文件起始的几个字节内容是固定的，这几个字节的内容记录着文件的类型，这些内容被称为"[Magic Number（魔数/幻术）](https://en.wikipedia.org/wiki/Magic_number_(programming)#In_files)"
 
 file-type 这个 js 库就是通过魔数去获取文件类型的，所以我们可以使用这个库读取文件的真实类型
 
-### file-type
+#### file-type
 
 [仓库地址](https://github.com/sindresorhus/file-type)
 
-#### 安装
+##### 安装
 
 安装 16.5.4 版本的 file-type，19.0.0 版本经过测试已经无法使用下面提到的方法解决 Buffer undefined 的问题，其他版本暂时不确定行不行，建议直接安装 16.5.4 版本
 
@@ -121,7 +124,7 @@ file-type 这个 js 库就是通过魔数去获取文件类型的，所以我们
 npm install file-type@16.5.4
 ```
 
-#### 使用
+##### 使用
 
 ```js
 import { fromBuffer } from 'file-type/core'
@@ -135,7 +138,7 @@ const blobType = await fromBuffer(await blob.arrayBuffer())
 
 我们可以手动设置 Buffer 全局变量来解决这个问题
 
-#### 安装 buffer 依赖
+##### 安装 buffer 依赖
 
 ```shell
 npm install buffer
@@ -150,6 +153,21 @@ window.Buffer = window.Buffer || Buffer
 ```
 
 至此，就能完整的实现 TinyMCE 导入 word 文件的功能了，并且可以将导入的图片上传到服务器上
+
+#### 样式丢失
+
+导入 word 之后发现有部分样式丢失，而且在 docx-preview 提供的 demo 上面没有问题，最后发现是 TinyMCE 在导入 html 的时候"动了手脚"——TinyMCE 把 style 标签、没有属性的 span 标签都移除了，解决方法如下：
+
+```js
+const initOptions = {
+    ...
+    // 允许添加 style 标签
+    valid_children : '+body[style]',
+    // 防止 tinyMCE 移除没有属性的 span 标签
+    extended_valid_elements: 'span',
+    ...
+}
+```
 
 ## 完整示例
 
