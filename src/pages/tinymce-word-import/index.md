@@ -154,7 +154,7 @@ window.Buffer = window.Buffer || Buffer
 
 至此，就能完整的实现 TinyMCE 导入 word 文件的功能了，并且可以将导入的图片上传到服务器上
 
-#### 样式丢失
+### 样式丢失
 
 导入 word 之后发现有部分样式丢失，而且在 docx-preview 提供的 demo 上面没有问题，最后发现是 TinyMCE 在导入 html 的时候"动了手脚"——TinyMCE 把 style 标签、没有属性的 span 标签都移除了，解决方法如下：
 
@@ -163,8 +163,8 @@ const initOptions = {
     ...
     // 允许添加 style 标签
     valid_children : '+body[style]',
-    // 防止 tinyMCE 移除没有属性的 span 标签
-    extended_valid_elements: 'span',
+    // 防止 tinyMCE 移除没有属性的 span 标签，保留所有标签的 style 属性
+    extended_valid_elements: 'span|*[style]',
     ...
 }
 ```
