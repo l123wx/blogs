@@ -152,7 +152,33 @@ import { Buffer } from 'buffer'
 window.Buffer = window.Buffer || Buffer
 ```
 
-至此，就能完整的实现 TinyMCE 导入 word 文件的功能了，并且可以将导入的图片上传到服务器上
+至此，就能完整的实现 TinyMCE 导入 word 文件的功能了，并且可以将导入的图片上传到服务器上：
+
+```js
+images_upload_handler: (blobInfo, succFun, failFun) => {
+    return new Promise(async (resolve) => {
+        let file = blobInfo.blob()
+
+        if (isUnknownTypeBlob(blobInfo.blobUri())) {
+            const blob = blobInfo.blob()
+            const blobType = await fromBuffer(await blob.arrayBuffer())
+            file = new File([blob], `${Date.now()}.${blobType?.ext || 'blob'}`)
+        }
+
+        exampleUploadApi(file).then(res => {
+            succFun && succFun(res.fileName)
+            resolve(res.fileName)
+
+            // 主动触发 input 事件，图片地址替换之后不会主动触发 input 事件
+            setTimeout(() => {
+                tinyMCEEditor.fire('input')
+            })
+        }).catch(err => {
+            failFun && failFun(err.message || 'error')
+        })
+    })
+}
+```
 
 ### 样式丢失
 
