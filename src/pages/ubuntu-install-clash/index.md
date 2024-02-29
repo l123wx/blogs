@@ -1,6 +1,6 @@
 ---
 title: '在 Ubuntu 安装使用 clash'
-date: '2024/02/29'
+date: '2024-02-29'
 spoiler: ''
 ---
 
@@ -48,6 +48,18 @@ ExecStart=/usr/bin/clash
 如果没有手动添加配置文件，clash 会自动在这个目录下生成默认的配置文件
 
 在运行clash时，使用 -f 指定配置文件，示例：*clash -f config.yaml* （运行clash并指定配置文件为./config.yaml）
+
+#### 从 clash for windows 获取配置文件
+
+<img src="assets/image-20240229201132386.png" alt="image-20240229201132386" style="zoom: 50%;" />
+
+将文件夹下的 `.yml` 文件重命名为 `config.yaml` 即可
+
+![image-20240229201239191](assets/image-20240229201239191.png)
+
+在上一级目录可以找到 `Country.mmdb` 文件
+
+![image-20240229201443580](assets/image-20240229201443580.png)
 
 ### 运行 clash
 
