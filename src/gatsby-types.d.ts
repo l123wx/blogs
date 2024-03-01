@@ -2642,18 +2642,22 @@ type SiteSiteMetadataFilterInput = {
 };
 
 type SiteSiteMetadataSocial = {
+  readonly Email: Maybe<Scalars['String']>;
   readonly GitHub: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataSocialFieldSelector = {
+  readonly Email: InputMaybe<FieldSelectorEnum>;
   readonly GitHub: InputMaybe<FieldSelectorEnum>;
 };
 
 type SiteSiteMetadataSocialFilterInput = {
+  readonly Email: InputMaybe<StringQueryOperatorInput>;
   readonly GitHub: InputMaybe<StringQueryOperatorInput>;
 };
 
 type SiteSiteMetadataSocialSortInput = {
+  readonly Email: InputMaybe<SortOrderEnum>;
   readonly GitHub: InputMaybe<SortOrderEnum>;
 };
 

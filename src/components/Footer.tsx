@@ -9,6 +9,7 @@ const query = graphql`
             siteMetadata {
                 social {
                     GitHub
+                    Email
                 }
             }
         }
@@ -25,7 +26,6 @@ const Footer: React.FC = () => {
     return (
         <footer
             style={{
-                marginTop: rhythm(2.5),
                 paddingTop: rhythm(1)
             }}
         >
