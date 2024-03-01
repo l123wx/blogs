@@ -5,7 +5,7 @@ const config: GatsbyConfig = {
         title: "Elvis's blogs",
         author: 'Elvis',
         description: "Personal blog by Elvis. Hello, I'm Elvis, a front-end engineer, this is my personal blogs",
-        siteUrl: 'https://l123wx.buzz',
+        siteUrl: 'https://l123wx.github.io/blogs/',
         social: {
             GitHub: 'https://github.com/l123wx'
         }
