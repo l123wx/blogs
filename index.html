@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elvis's blogs</title>
+    <script>
+        const DOMAIN = 'https://www.l123wx.site'
+
+        const paramsStr = window.location.search
+        const params = new URLSearchParams(paramsStr)
+
+        window.open(DOMAIN + (params.get('redirect') || ''), '_self')
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
