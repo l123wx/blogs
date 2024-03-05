@@ -10,7 +10,7 @@ spoiler: '定时任务突然不执行了，我来看看是怎么个事'
 
 编辑以下文件
 
-```Bash
+```bash
 vi /etc/rsyslog.d/50-default.conf
 ```
 
