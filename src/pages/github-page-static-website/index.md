@@ -55,10 +55,18 @@ jobs:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
+                  # 使用 yarn：
+                  # key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
             - name: Install dependencies
               run: |
                   npm install
                   npm run build
+
+              # 使用 yarn
+              # npm install -g yarn
+              # yarn
+              # yarn build
 
             - name: Deploy
               env:
