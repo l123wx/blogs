@@ -1,5 +1,5 @@
 ---
-title: '利用 GitHub Pages 自动部署前端项目的预览页面'
+title: '使用 Github Actions 自动部署前端项目到 GitHub Pages'
 date: '2024-03-24'
 spoiler: '为自己的项目添加一个预览页面'
 ---
@@ -120,3 +120,5 @@ const publicResourcePath = new URL('/js/test.js', import.meta.url).href.replace(
 ## 相关文章
 
 > [GitHub Pages 使用入门 - GitHub 文档](https://docs.github.com/zh/pages/getting-started-with-github-pages)
+
+> [GitHub Actions 文档 - GitHub 文档](https://docs.github.com/zh/actions)
