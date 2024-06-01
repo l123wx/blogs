@@ -6,15 +6,15 @@ spoiler: ''
 
 ## 1.获取 clash 可执行文件
 
-下载 clash for linux 核心文件：[clash-linux-amd64-v3-v1.15.1.gz](./assets/clash-linux-amd64-v3-v1.15.1.gz)
+下载 clash for linux 核心文件：[clash-linux-arm64-v1.18.0.gz](./assets/clash-linux-arm64-v1.18.0.gz)
 
 ```shell
 # 进入文件所在目录
 cd ~/Downloads
 # 解压
-gunzip clash-linux-amd64-v3-v1.15.1.gz
+gunzip clash-linux-arm64-v1.18.0.gz
 # 重命名
-mv clash-linux-amd64-v3-v1.15.1 clash
+mv clash-linux-arm64-v1.18.0 clash
 # 添加可执行权限(解压后是一个可执行文件，如果没有执行权限，需要手动添加）
 chmod +x clash
 # 复制clash 到/usr/bin/文件夹(这样在终端任何位置执行 clash 即可启动)
