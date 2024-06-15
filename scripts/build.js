@@ -26,7 +26,6 @@ const run = async (args) => {
     initFolder(issuesDirPath)
 
     result.forEach(issue => {
-        console.log('%c [ issue ]-29', 'font-size:13px; background:pink; color:#bf2c9f;', issue)
         const folderName = `issue-${issue.number}`
         fs.mkdirSync(path.join(issuesDirPath, folderName))
         fs.writeFileSync(path.join(issuesDirPath, folderName, 'index.md'), createFrontMatter(issue.title, issue.created_at) + issue.body)
