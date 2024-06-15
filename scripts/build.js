@@ -1,7 +1,6 @@
 const fs = require('node:fs')
 const process = require('process')
 const path = require('path')
-const { rimrafSync } = require('rimraf')
 const shell = require('shelljs');
 const yargs = require('yargs')
 const { hideBin } = require('yargs/helpers')
@@ -33,12 +32,12 @@ const run = async (args) => {
 
     shell.exec('gatsby build')
 
-    rimrafSync(issuesDirPath)
+    shell.rm('-rf', issuesDirPath)
 }
 
 const initFolder = (path) => {
     if (fs.existsSync(path)) {
-        rimrafSync(path)
+        shell.rm('-rf', path)
     }
 
     fs.mkdirSync(path)
