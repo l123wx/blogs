@@ -45,7 +45,10 @@
     "@types/react-helmet": "^6.1.6",
     "@types/typography": "^0.16.4",
     "prettier": "^2.8.3",
-    "typescript": "^4.9.5"
+    "rimraf": "^5.0.7",
+    "shelljs": "^0.8.5",
+    "typescript": "^4.9.5",
+    "yargs": "^17.7.2"
   },
   "keywords": [
     "gatsby",
@@ -55,6 +58,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "build:issue": "node scripts/build.js",
     "dev": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
     "start": "gatsby develop",
@@ -68,5 +72,6 @@
   },
   "bugs": {
     "url": "https://github.com/l123wx/blogs/issues"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
