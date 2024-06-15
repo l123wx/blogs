@@ -33,6 +33,8 @@ const run = async (args) => {
     shell.exec('gatsby build')
 
     shell.rm('-rf', issuesDirPath)
+
+    process.exit(0)
 }
 
 const initFolder = (path) => {
