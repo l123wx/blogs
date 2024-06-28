@@ -50,7 +50,10 @@ vi /etc/systemd/system/clash.service
 Description=clash
 [Service]
 Type=simple
-ExecStart=/usr/bin/clash
+ExecStart=/usr/bin/clash -f /root/.config/clash/config.yaml
+[Install]
+WantedBy=multi-user.target
+Alias=clash.service
 ```
 
 ### 添加配置文件
