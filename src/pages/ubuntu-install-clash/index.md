@@ -6,7 +6,21 @@ spoiler: ''
 
 ## 1.获取 clash 可执行文件
 
-下载 clash for linux 核心文件：[clash-linux-arm64-v1.18.0.gz](./assets/clash-linux-arm64-v1.18.0.gz)
+查看操作系统架构：
+
+```shell
+dpkg --print-architecture
+// amd64
+
+arch
+// x86_64
+```
+
+根据系统架构下载对应的 clash for linux 核心文件：
+
+[clash-linux-arm64-v1.18.0.gz](./assets/clash-linux-arm64-v1.18.0.gz)
+
+[clash-linux-amd64-v1.13.0.gz](./assets/clash-linux-amd64-v1.13.0.gz)
 
 ```shell
 # 进入文件所在目录
