@@ -6,7 +6,7 @@ spoiler: '为自己的项目添加一个预览页面'
 
 ## 2024/05/27 更新
 
-写了个 [Vue3 项目的模板](https://github.com/l123wx/vite-vue-github-pages)，已经配置好 GitHub Actions，只需要一个操作就可以实现推送代码的时候自动打包部署 GitHub Pages了
+写了个 [Vue3 项目的模板](https://github.com/l123wx/starter-github-pages)，已经配置好 GitHub Actions，只需要一个操作就可以实现推送代码的时候自动打包部署 GitHub Pages 了
 
 ## 开始
 
