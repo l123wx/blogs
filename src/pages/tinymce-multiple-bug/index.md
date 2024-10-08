@@ -1,7 +1,7 @@
 ---
 title: '同一页面中使用多个 TinyMCE 富文本框的坑'
 date: '2024-01-09'
-spoiler: '记录一个之前解决的问题'
+spoiler: '同一页面使用多个 TinyMCE 富文本输入框的 Bug'
 ---
 
 ## 1. textarea 标签 id 重复
