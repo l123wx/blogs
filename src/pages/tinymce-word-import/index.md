@@ -1,7 +1,7 @@
 ---
 title: 'TinyMCE word 文档导入'
 date: '2024-01-09'
-spoiler: '通过 docx-preview 实现 Word 文档导入功能'
+spoiler: '通过 docx-preview 实现 TinyMCE Word 文档导入功能'
 ---
 
 ## 前言
