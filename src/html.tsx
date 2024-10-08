@@ -22,6 +22,7 @@ const HTML: React.FC<Props> = ({
             <head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+                <meta name="baidu-site-verification" content="codeva-0vGfaRzSSO" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
