@@ -1,7 +1,7 @@
 ---
 title: 'Vue3 使用离线版的 TinyMCE'
 date: '2023-03-21'
-spoiler: 'TinyMCE 的使用，而且离线版本！'
+spoiler: 在 Vue3 项目中使用离线版 (Self hosted) TinyMCE 富文本，无需使用 api-key'
 ---
 
 ## 前言
