@@ -8,6 +8,14 @@ export type BlogPostProps = {
     next: Queries.MarkdownRemark | null
 }
 
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ actions, stage }) => {
+    if (stage === 'build-javascript') {
+        actions.setWebpackConfig({
+            devtool: false
+        })
+    }
+}
+
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
     const { createPage } = actions
 

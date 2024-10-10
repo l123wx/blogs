@@ -5,7 +5,7 @@ const config: GatsbyConfig = {
         title: "Elvis's blogs",
         author: 'Elvis',
         description: "Personal blog by Elvis. Hello, I'm Elvis, a front-end engineer, this is my personal blogs",
-        siteUrl: 'https://l123wx.github.io/blogs/',
+        siteUrl: 'https://www.l123wx.site',
         social: {
             GitHub: 'https://github.com/l123wx',
             Email: 'mailto:llwxi@qq.com'
@@ -77,7 +77,8 @@ const config: GatsbyConfig = {
                 pathToConfigModule: 'src/utils/typography'
             }
         },
-        `gatsby-plugin-catch-links`
+        `gatsby-plugin-catch-links`,
+        `gatsby-plugin-sitemap`
     ],
     pathPrefix: '/',
     graphqlTypegen: true
