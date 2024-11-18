@@ -25,13 +25,14 @@ const run = async (args) => {
 
     initFolder(issuesDirPath)
 
-    result.forEach(issue => {
+    for (const issue of result) {
         const folderName = `issue-${issue.number}`
-        fs.mkdirSync(path.join(issuesDirPath, folderName))
+        const folderPath = path.join(issuesDirPath, folderName)
+        fs.mkdirSync(folderPath)
         fs.writeFileSync(
             path.join(issuesDirPath, folderName, 'index.md'),
-            createFrontMatter(issue.title, issue.created_at) + contentFilter(issue.body, issue.body_html))
-    })
+            createFrontMatter(issue.title, issue.created_at) + await contentFilter(issue.body, issue.body_html, folderPath))
+    }
 
     shell.exec('gatsby build')
 
@@ -52,7 +53,13 @@ const createFrontMatter = (title = '', createDate = '', spoiler = '') => {
     return `---\r\ntitle: '${title}'\r\ndate: '${createDate}'\r\nspoiler: '${spoiler}'\r\n---\r\n\r\n`
 }
 
-const contentFilter = (body_markdown, body_html) => {
+const contentFilter = async (body_markdown, body_html, pwd) => {
+    // 创建 assets 目录
+    const assetsDir = path.join(pwd, 'assets');
+    if (!fs.existsSync(assetsDir)) {
+        fs.mkdirSync(assetsDir, { recursive: true });
+    }
+
     // 从 HTML 中提取所有图片链接
     const imgRegex = /<img[^>]+src="([^">]+)"/g;
     const imgUrls = [];
@@ -62,14 +69,30 @@ const contentFilter = (body_markdown, body_html) => {
         imgUrls.push(match[1]);
     }
     
+    // 下载并保存图片，同时记录新的本地路径
+    const localImgPaths = await Promise.all(imgUrls.map(async url => {
+        try {
+            const response = await fetch(url);
+            const buffer = await response.arrayBuffer();
+            const filename = path.basename(new URL(url).pathname);
+            const localPath = path.join(assetsDir, filename);
+            
+            fs.writeFileSync(localPath, Buffer.from(buffer));
+            return `./assets/${filename}`;
+        } catch (error) {
+            console.error(`Failed to download image: ${url}`, error);
+            return url; // 如果下载失败，保留原始URL
+        }
+    }));
+    
     // 替换 markdown 中的图片链接
     let index = 0;
     const updatedMarkdown = body_markdown.replace(
         /!\[image\]\([^)]+\)/g,
         () => {
-            const newUrl = imgUrls[index];
+            const newPath = localImgPaths[index];
             index++;
-            return `![image](${newUrl})`;
+            return `![image](${newPath})`;
         }
     );
     
