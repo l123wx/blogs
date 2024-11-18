@@ -15,7 +15,8 @@ const run = async (args) => {
 
     const response = await fetch('https://api.github.com/repos/l123wx/Notion/issues?labels=blog', {
         headers: {
-            'Authorization': `Bearer ${args.githubToken}`
+            'Authorization': `Bearer ${args.githubToken}`,
+            'Accept': 'application/vnd.github.html+json'
         }
     })
     const result = await response.json()
@@ -27,7 +28,7 @@ const run = async (args) => {
     result.forEach(issue => {
         const folderName = `issue-${issue.number}`
         fs.mkdirSync(path.join(issuesDirPath, folderName))
-        fs.writeFileSync(path.join(issuesDirPath, folderName, 'index.md'), createFrontMatter(issue.title, issue.created_at) + issue.body)
+        fs.writeFileSync(path.join(issuesDirPath, folderName, 'index.md'), createFrontMatter(issue.title, issue.created_at) + issue.body_html)
     })
 
     shell.exec('gatsby build')
