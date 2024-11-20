@@ -21,12 +21,14 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
         const rootPath = `${__PATH_PREFIX__}/`
 
         return (
-            <h1
+            <div
                 style={{
                     ...scale(location.pathname === rootPath ? 0.75 : 0.5),
                     transition: 'all 0.5s',
-                    paddingBottom: 0,
-                    paddingTop: 0
+                    padding: 0,
+                    color: 'inherit',
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 900,
                 }}
             >
                 <Link
@@ -39,7 +41,7 @@ const Layout: React.FC<Props> = ({ location, title, children, theme }) => {
                 >
                     {title}
                 </Link>
-            </h1>
+            </div>
         )
     }
 
